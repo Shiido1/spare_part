@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sparepart/screens/profile_screen/offer/on_pressed_discount_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -56,12 +57,12 @@ class _DiscountScreenState extends State<DiscountScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      orderItemContainer(),
-                      orderItemContainer(),
-                      orderItemContainer(),
-                      orderItemContainer(),
-                      orderItemContainer(),
-                    ],
+                      orderItemContainer(screen:OnPressedDiscountScreen()),
+                      orderItemContainer(screen:OnPressedDiscountScreen()),
+                      orderItemContainer(screen:OnPressedDiscountScreen()),
+                      orderItemContainer(screen:OnPressedDiscountScreen()),
+                      orderItemContainer(screen:OnPressedDiscountScreen()),
+                  ]
                   ),
                 )
               ],
@@ -72,61 +73,69 @@ class _DiscountScreenState extends State<DiscountScreen> {
     );
   }
 
-  Widget orderItemContainer()=>Container(
-    height: 150,
-    color: Colors.white,
-    child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image(
-              image: AssetImage(
-                AppAssets.tyreWheel,
+  Widget orderItemContainer({Widget screen})=>InkWell(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
+      );
+    },
+    child: Container(
+      height: 150,
+      color: Colors.white,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image(
+                image: AssetImage(
+                  AppAssets.tyreWheel,
+                ),
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextViewWidget(
-                    text: 'Wheels &  Tires',
-                    color: AppColor.black,
-                  textSize: 20,
-                    fontWeight: FontWeight.bold,),
-                SizedBox(height: 10,),
-
-                Column(
-                  children: [
-                    TextButton(
-                      onPressed: (){},
-                      child: TextViewWidget(
-                        text: '60%',
-                        textSize: 15,
-                        color: AppColor.black,),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                        primary: AppColor.red,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)
-                        ),
-                      ),),
-                    SizedBox(height: 10,),
-                    TextViewWidget(
-                      text: 'N7,000',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextViewWidget(
+                      text: 'Wheels &  Tires',
                       color: AppColor.black,
-                      textSize: 15,)
-                  ],
-                )
-              ],
-            ),
-            TextViewWidget(
-                text: '4 May, 2020',
-                color: AppColor.black)
-          ],
-        ),
-        Divider(thickness: 0.5, color: Colors.black26,)
-      ],
+                    textSize: 20,
+                      fontWeight: FontWeight.bold,),
+                  SizedBox(height: 10,),
+
+                  Column(
+                    children: [
+                      TextButton(
+                        onPressed: (){},
+                        child: TextViewWidget(
+                          text: '60%',
+                          textSize: 15,
+                          color: AppColor.black,),
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                          primary: AppColor.red,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)
+                          ),
+                        ),),
+                      SizedBox(height: 10,),
+                      TextViewWidget(
+                        text: 'N7,000',
+                        color: AppColor.black,
+                        textSize: 15,)
+                    ],
+                  )
+                ],
+              ),
+              TextViewWidget(
+                  text: '4 May, 2020',
+                  color: AppColor.black)
+            ],
+          ),
+          Divider(thickness: 0.5, color: Colors.black26,)
+        ],
+      ),
     ),
   );
 }

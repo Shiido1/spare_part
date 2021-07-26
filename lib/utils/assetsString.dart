@@ -29,10 +29,10 @@ class AppAssets {
   static final String settings = 'assets/svg/settings.svg';
   static final String user = 'assets/svg/user.svg';
   static final String yellowAddress = 'assets/svg/yellow_address.svg';
-  static final String english = 'assets/svg/english.svg';
-  static final String french = 'assets/svg/french.svg';
-  static final String germany = 'assets/svg/germany.svg';
-  static final String chinese = 'assets/svg/chinese.svg';
-  static final String japan = 'assets/svg/japan.svg';
-  static final String turkey = 'assets/svg/turkey.svg';
+  static final String english = 'assets/image/eng.png';
+  static final String french = 'assets/image/fra.png';
+  static final String germany = 'assets/image/ger.png';
+  static final String chinese = 'assets/image/chi.png';
+  static final String japan = 'assets/image/jap.png';
+  static final String turkey = 'assets/image/tur.png';
 }

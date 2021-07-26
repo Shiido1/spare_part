@@ -4,6 +4,8 @@ import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
 
+import '../main_screen.dart';
+
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key key}) : super(key: key);
 
@@ -25,7 +27,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 1,),
-            IconButton(onPressed:(){},
+            IconButton(onPressed:(){Navigator.pop(context);},
               icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),),
             TextViewWidget(
               text: 'Forgot Password',
@@ -52,7 +54,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               child: Padding(
                 padding: const EdgeInsets.only(left:25,right: 25,top: 30),
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: ()=>
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainScreen()),
+                    ),
                   child: TextViewWidget(
                     text: 'Continue',
                     textSize: 23,

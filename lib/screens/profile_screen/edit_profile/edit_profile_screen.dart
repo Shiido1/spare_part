@@ -39,7 +39,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       IconButton(
                           icon: Icon(Icons.arrow_back_ios),
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
                       color: AppColor.yellow,),
                       TextViewWidget(
                         text: "Edit Profile",

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sparepart/screens/profile_screen/payment/successful_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -35,7 +36,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(width: 100,),
+                  IconButton(onPressed:(){Navigator.pop(context);},
+                    icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),),
                   TextViewWidget(
                     text: "Payment",
                     color: AppColor.yellow,
@@ -105,7 +107,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left:25,right: 25),
                       child: TextButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SuccessfulScreen()),
+                          );
+                        },
                         child: TextViewWidget(
                           text: 'Pay Securely',
                           textSize: 20,

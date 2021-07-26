@@ -5,6 +5,8 @@ import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/image_loader.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
+import '../main_screen.dart';
+
 class SuccessfulScreen extends StatefulWidget {
   const SuccessfulScreen({Key key}) : super(key: key);
 
@@ -56,12 +58,20 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                ),
              ),
               SizedBox(height: 50,),
-              TextViewWidget(
-                  textAlign: TextAlign.center,
-                  text: 'Payment Successful',
-                  color: AppColor.purple,
-                  textSize: 30,
-                  fontWeight: FontWeight.bold,)
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainScreen()),
+                  );
+                },
+                child: TextViewWidget(
+                    textAlign: TextAlign.center,
+                    text: 'Payment Successful',
+                    color: AppColor.purple,
+                    textSize: 30,
+                    fontWeight: FontWeight.bold,),
+              )
       ]
         ),
       ),

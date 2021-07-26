@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password.dart';
+import 'package:sparepart/screens/profile_screen/main_screen.dart';
+import 'package:sparepart/sign_up/sign_up_screen.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
@@ -59,11 +63,19 @@ class _SignInScreenState extends State<SignInScreen> {
               SizedBox(height: 45,),
               Align(
                 alignment: Alignment.centerRight,
-                child: TextViewWidget(
-                  text: 'Forgot Password',
-                  color: AppColor.black,
-                  textSize: 19,
-                    ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgotPassword()),
+                    );
+                  },
+                  child: TextViewWidget(
+                    text: 'Forgot Password',
+                    color: AppColor.black,
+                    textSize: 19,
+                      ),
+                ),
               ),
               CheckboxListTile(
                 title: TextViewWidget(
@@ -80,7 +92,12 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left:25,right: 25,top: 30),
                   child: TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainScreen()),
+                      );
+                    },
                     child: TextViewWidget(
                       text: 'Login',
                       textSize: 23,
@@ -91,7 +108,34 @@ class _SignInScreenState extends State<SignInScreen> {
                       shape: StadiumBorder(),
                     ),),
                 ),
-              )
+              ),
+              SizedBox(height: 50,),
+              Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Don\u0027t have an account?  ',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w500),
+                    children: <TextSpan>[
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () =>
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SignUpScreen()),
+                              ),
+                        text: 'Sign up',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: AppColor.purple,
+                            fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               // Checkbox(value: value, onChanged: onChanged)
             ],
           ),

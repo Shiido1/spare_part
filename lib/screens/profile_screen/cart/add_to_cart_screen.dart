@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sparepart/screens/profile_screen/payment/payment_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -68,19 +69,27 @@ class _CartScreenState extends State<CartScreen> {
                             color: AppColor.black,
                             textSize: 20,
                             fontWeight: FontWeight.bold,),
-                          Container(
-                            width: 90,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              color: AppColor.purple,
-                            ),
-                            child: Center(
-                              child: TextViewWidget(
-                                  text: 'Purchase',
-                                  textSize: 18,
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => PaymentScreen()),
+                              );
+                            },
+                            child: Container(
+                              width: 90,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                color: AppColor.purple,
+                              ),
+                              child: Center(
+                                child: TextViewWidget(
+                                    text: 'Purchase',
+                                    textSize: 18,
 
-                                  color: Colors.white),
+                                    color: Colors.white),
+                              ),
                             ),
                           )
                         ],

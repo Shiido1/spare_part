@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sparepart/screens/profile_screen/offer/discount_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -16,7 +17,7 @@ class _OfferScreenState extends State<OfferScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -62,9 +63,9 @@ class _OfferScreenState extends State<OfferScreen> {
                 ),
                 child: Column(
                   children: [
-                    customCard('30'),
-                    customCard('15'),
-                    customCard('12'),
+                    customCard(amount:'30',screen: DiscountScreen(),),
+                    customCard(amount:'15',screen: DiscountScreen(),),
+                    customCard(amount:'12',screen: DiscountScreen(),),
                     Container(),
                   ],
                 ),
@@ -76,47 +77,56 @@ class _OfferScreenState extends State<OfferScreen> {
     );
   }
 
-  Widget customCard(String amount)=>Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(15.0),
-    ),
-    color: AppColor.yellow,
-    child: Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Container(
-        height: 150,
-        child: Row(
-          children: [
-            SizedBox(
-              height: 90,
-              width: 90,
-              child: ClipOval(
-                child: Image(
-                  image: AssetImage(AppAssets.pic),
-                ),
+  Widget customCard({String amount, Widget screen})=>InkWell(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
+      );
 
+    },
+    child: Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      color: AppColor.yellow,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Container(
+          height: 150,
+          child: Row(
+            children: [
+              SizedBox(
+                height: 90,
+                width: 90,
+                child: ClipOval(
+                  child: Image(
+                    image: AssetImage(AppAssets.pic),
+                  ),
+
+                ),
               ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextViewWidget(
-                    text: "$amount% Discount",
-                    color: AppColor.black,
-                    fontWeight: FontWeight.w500,textSize: 20,),
-                  TextViewWidget(
-                    text: "Order any part from app and get the discount",
-                    color: AppColor.black,textSize: 16,),
-                  TextViewWidget(
-                    text: "Order Now",
-                    color: AppColor.black,
-                    fontWeight: FontWeight.w500,textSize: 17,)
-                ],
-              ),
-            )
-          ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextViewWidget(
+                      text: "$amount% Discount",
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w500,textSize: 20,),
+                    TextViewWidget(
+                      text: "Order any part from app and get the discount",
+                      color: AppColor.black,textSize: 16,),
+                    TextViewWidget(
+                      text: "Order Now",
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w500,textSize: 17,)
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     ),

@@ -32,6 +32,7 @@ dependencies:
   cached_network_image: ^3.0.0
   pin_entry_text_field: ^0.1.4
   curved_navigation_bar: ^1.0.1
+  dots_indicator: ^1.2.0
 
 dev_dependencies:
   flutter_test:

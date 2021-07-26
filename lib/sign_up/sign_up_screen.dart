@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sparepart/screens/profile_screen/verification/verification_screen.dart';
+import 'package:sparepart/sign_in/sign_in_screen.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
@@ -68,7 +71,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left:25,right: 25,top: 30),
                   child: TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Verify()),
+                      );
+                    },
                     child: TextViewWidget(
                       text: 'Sign Up',
                       textSize: 23,
@@ -79,7 +87,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       shape: StadiumBorder(),
                     ),),
                 ),
-              )
+              ),
+              Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Already have an account?  ',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppColor.black,
+                        fontWeight: FontWeight.bold),
+                    children: <TextSpan>[
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () =>
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SignInScreen()),
+                              ),
+                        text: 'Sign in',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: AppColor.purple,
+                            fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               // Checkbox(value: value, onChanged: onChanged)
             ],
           ),

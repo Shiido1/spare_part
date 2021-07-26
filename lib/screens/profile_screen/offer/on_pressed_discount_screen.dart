@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sparepart/screens/profile_screen/cart/add_to_cart_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -149,22 +150,30 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                               color: AppColor.black,
                               textSize: 20,
                               fontWeight: FontWeight.bold,),
-                            Container(
-                              width: 150,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                color: AppColor.purple,
-                              ),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    AppAssets.shoppingCart,
-                                    color: Colors.white,),
-                                  TextViewWidget(
-                                      text: 'Add To Cart',
-                                      color: Colors.white)
-                                ],
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => CartScreen()),
+                                );
+                              },
+                              child: Container(
+                                width: 150,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  color: AppColor.purple,
+                                ),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppAssets.shoppingCart,
+                                      color: Colors.white,),
+                                    TextViewWidget(
+                                        text: 'Add To Cart',
+                                        color: Colors.white)
+                                  ],
+                                ),
                               ),
                             )
                           ],

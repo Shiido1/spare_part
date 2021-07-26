@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -34,7 +33,7 @@ class _LanguageState extends State<Language> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        onPressed: (){},
+                        onPressed: (){Navigator.pop(context);},
                         color: AppColor.yellow,),
                       TextViewWidget(
                         text: "Language",
@@ -59,6 +58,7 @@ class _LanguageState extends State<Language> {
                 padding: const EdgeInsets.only(left: 25,right: 25),
                 child: Column(
                   children: [
+                    SizedBox(height: 15,),
                     TextViewWidget(
                       text: 'Select a Language',
                       color: Colors.black26,textSize: 18,),
@@ -67,7 +67,7 @@ class _LanguageState extends State<Language> {
                     textCard(text: 'French',icon: AppAssets.french),
                     textCard(text: 'Germany',icon: AppAssets.germany),
                     textCard(text: 'Chinese',icon: AppAssets.chinese),
-                    textCard(text: 'Japan',icon: AppAssets.japan),
+                    textCard(text: 'Japan',icon:  AppAssets.japan),
                     textCard(text: 'Turkey',icon: AppAssets.turkey),
 
                   ],
@@ -89,7 +89,7 @@ class _LanguageState extends State<Language> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(width: 20,),
-          SvgPicture.asset(icon),
+          Image(image:AssetImage(icon)),
           SizedBox(width: 35,),
           TextViewWidget(
             text: '$text',

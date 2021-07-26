@@ -41,7 +41,9 @@ class _AddCardState extends State<AddCard> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
                         color: AppColor.yellow,),
                       TextViewWidget(
                         text: "Add Card",
@@ -66,6 +68,7 @@ class _AddCardState extends State<AddCard> {
                 padding: const EdgeInsets.only(left:25,right:25),
                 child: Column(
                   children: [
+                    SizedBox(height: 15,),
                     TextViewWidget(
                       text: 'Enter your Card Information',
                       textSize: 18,

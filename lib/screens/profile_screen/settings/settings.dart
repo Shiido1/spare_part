@@ -4,6 +4,8 @@ import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
+import 'languages.dart';
+
 class Settings extends StatefulWidget {
   const Settings({Key key}) : super(key: key);
 
@@ -32,10 +34,12 @@ class _SettingsState extends State<Settings> {
                   children: [
                     IconButton(
                       icon: Icon(Icons.arrow_back_ios),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
                       color: AppColor.yellow,),
                     TextViewWidget(
-                      text: "Settingd",
+                      text: "Settings",
                       color: AppColor.yellow,
                       fontWeight: FontWeight.w500,
                       textSize: 25,),
@@ -60,34 +64,56 @@ class _SettingsState extends State<Settings> {
             textCard(
                 text: 'Language',
                 middleText: 'English',
-                icon: Icons.arrow_forward_ios_outlined),
+                icon: Icons.arrow_forward_ios_outlined,
+                screen: Language()),
           ],
         ),
       ),
     );
   }
-  Widget textCard({String text,String middleText,IconData icon})=> Card(
-    child: Container(
-      height: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+  Widget textCard({String text,String middleText,IconData icon,Widget screen})=> InkWell(
+    onTap: (){
+      screen==null?Scaffold(appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: (){Navigator.pop(context);},
+          color: AppColor.yellow,),
+      ),):Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
+      );
+    },
+    child: Padding(
+      padding: const EdgeInsets.only(top:8,right: 16,left: 16),
+      child: Card(
+        child: Container(
+          margin: EdgeInsets.only(left: 25,right: 25,top: 15),
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
 
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(width: 20,),
-          TextViewWidget(
-            text: '$text',
-            color: AppColor.grey,textSize: 15,),
-          SizedBox(width: 35,),
-          TextViewWidget(
-            text: '$middleText',
-            color: AppColor.black,textSize: 20,),
-          SizedBox(width: 35,),
-          Icon(icon),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: 20,),
+                  TextViewWidget(
+                    text: '$text',
+                    color: AppColor.grey,textSize: 15,),
+                  SizedBox(width: 35,),
+                  TextViewWidget(
+                    text: '$middleText',
+                    color: AppColor.black,textSize: 20,),
+                  SizedBox(width: 35,),
+                  Icon(icon),
 
-        ],
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     ),
   );

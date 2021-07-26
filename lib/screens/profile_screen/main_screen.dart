@@ -26,7 +26,8 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         index:selectedIndex,
-        backgroundColor: AppColor.purple,
+        color: AppColor.purple,
+        backgroundColor: Colors.white,
         items:[
          SvgPicture.asset(AppAssets.home),
          SvgPicture.asset(AppAssets.order),

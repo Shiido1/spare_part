@@ -5,6 +5,8 @@ import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
+import '../main_screen.dart';
+
 class Verify extends StatefulWidget {
   const Verify({Key key}) : super(key: key);
 
@@ -49,7 +51,12 @@ class _VerifyState extends State<Verify> {
               child: Padding(
                 padding: const EdgeInsets.only(left:25,right: 25,top: 30),
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainScreen()),
+                    );
+                  },
                   child: TextViewWidget(
                     text: 'Verify',
                     textSize: 23,
