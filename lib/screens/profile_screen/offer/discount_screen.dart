@@ -32,7 +32,9 @@ class _DiscountScreenState extends State<DiscountScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(width: 100,),
+                      IconButton(
+                        icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
+                        onPressed: ()=>Navigator.pop(context),),
                       TextViewWidget(
                         text: "Order",
                         color: AppColor.yellow,

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sparepart.sparepart">
    <application
-        android:label="sparepart"
+        android:label="Gapa Auto"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -30,7 +30,9 @@ class _CartScreenState extends State<CartScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(width: 90,),
+                      IconButton(
+                        icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
+                        onPressed: ()=>Navigator.pop(context),),
                       TextViewWidget(
                         text: "Cart",
                         color: AppColor.yellow,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password.dart';
 import 'package:sparepart/screens/profile_screen/main_screen.dart';
 import 'package:sparepart/sign_up/sign_up_screen.dart';
+import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
@@ -32,7 +33,21 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 45,),
+              SizedBox(height: 20,),
+              Container(
+                height: 150,
+                decoration: new BoxDecoration(
+                  color: Colors.white,
+                  image: new DecorationImage(
+                    fit: BoxFit.cover,
+                    // colorFilter: new ColorFilter.mode(
+                    //     AppColor.black.withOpacity(1), BlendMode.dstATop),
+                    image: new AssetImage(
+                      AppAssets.gapa_logo,
+                    ),
+                  ),
+                ),
+              ),
               TextViewWidget(
                 text: 'Welcome!',
                 color: AppColor.black,

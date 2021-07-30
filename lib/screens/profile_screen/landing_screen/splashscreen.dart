@@ -16,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   int currentPage = 0;
-  int pageLength = 4;
+  int pageLength = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -29,26 +29,22 @@ class _SplashScreenState extends State<SplashScreen> {
             },
             children: [
               Landing(
-                image1: AppAssets.redFerrari,
+                image1: AppAssets.poco,
                 image2: AppAssets.logo,
                 svgImageAsset: AppAssets.whiteBar,),
               Landing(
-                image1: AppAssets.tyre,
+                image1: AppAssets.carBonet,
                 image2: AppAssets.purpleLogo,
                 svgImageAsset: AppAssets.yellow,),
               Landing(
-                image1: AppAssets.engine,
-                image2: AppAssets.logo,
-                svgImageAsset: AppAssets.whiteBar,),
-              Landing(
-                image1: AppAssets.iCar,
+                image1: AppAssets.mechHand,
                 image2: AppAssets.yellowLogo,
                 svgImageAsset: AppAssets.purpleBar,),
             ],
           ),
 
           Positioned(
-            bottom: 230,
+            bottom: 80,
             right: 140,
             child: Center(
               child: DotsIndicator(

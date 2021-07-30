@@ -19,7 +19,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
 
   int selectedIndex=0;
-  final screen = [DashBoard(),OrderScreen(),OfferScreen(),ProfileScreen()];
+  final screen = [
+    DashBoard(),
+    OrderScreen(),
+    OfferScreen(),
+    ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +33,10 @@ class _MainScreenState extends State<MainScreen> {
         color: AppColor.purple,
         backgroundColor: Colors.white,
         items:[
-         SvgPicture.asset(AppAssets.home),
-         SvgPicture.asset(AppAssets.order),
-         SvgPicture.asset(AppAssets.offer),
-         SvgPicture.asset(AppAssets.menu),
+         SvgPicture.asset(AppAssets.home,height: 30,width: 30),
+         SvgPicture.asset(AppAssets.order,height: 30,width: 30),
+         SvgPicture.asset(AppAssets.offer,height: 30,width: 30),
+         SvgPicture.asset(AppAssets.menu,height: 30,width: 30),
          ],
         onTap: (index){
           setState(() {

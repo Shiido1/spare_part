@@ -5,6 +5,8 @@ import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
+import '../../../utils/color_assets/color.dart';
+
 class OfferScreen extends StatefulWidget {
   const OfferScreen({Key key}) : super(key: key);
 
@@ -31,7 +33,9 @@ class _OfferScreenState extends State<OfferScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(height: 100,width: 100,),
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
+                      onPressed: ()=>Navigator.pop(context),),
                     TextViewWidget(
                       text: "Offer",
                       color: AppColor.yellow,

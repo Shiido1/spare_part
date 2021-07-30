@@ -18,6 +18,12 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.yellow,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios,color: AppColor.black,),
+          onPressed: ()=>Navigator.pop(context),),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,7 +34,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
               height: MediaQuery.of(context).size.height/2,
               child: Image(
                 image: AssetImage(AppAssets.tyreWheel),
-                height: 100,
+                height: 30,
                 width: 100,
               ),
             ),

@@ -16,9 +16,14 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
 
-  TextEditingController nameController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneNoController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 color: AppColor.black,
                 textSize: 26,
                 fontWeight: FontWeight.w500,),
-              SizedBox(height: 25,),
+              SizedBox(height: 15,),
               TextViewWidget(
                 text: 'Please enter your information below to sign in',
                 color: AppColor.black,
@@ -43,13 +48,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 fontWeight: FontWeight.w400,),
               SizedBox(height: 25,),
               EditTextWidget(
-                err: 'please enter your name',
+                err: 'please enter your first name',
                 textInputType: TextInputType.text,
-                controller: nameController,
-                hint: 'Name',
+                controller: firstNameController,
+                hint: 'First Name',
                 hintFontSize: 20,
-                label: 'please enter your name',),
-              SizedBox(height: 25,),
+                label: 'please enter your first name',),
+              SizedBox(height: 15,),
+              EditTextWidget(
+                err: 'please enter your last name',
+                textInputType: TextInputType.text,
+                controller: lastNameController,
+                hint: 'Last Name',
+                hintFontSize: 20,
+                label: 'please enter your last name',),
+              SizedBox(height: 15,),
+              EditTextWidget(
+                err: 'please enter phone number',
+                textInputType: TextInputType.number,
+                controller: phoneNoController,
+                hintFontSize: 20,
+                hint: 'Phone No',
+                label: 'please enter your phone number',),
+              SizedBox(height: 15,),
               EditTextWidget(
                 err: 'please enter email',
                 textInputType: TextInputType.text,
@@ -57,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 hintFontSize: 20,
                 hint: 'Email',
                 label: 'please enter your email',),
-              SizedBox(height: 25,),
+              SizedBox(height: 15,),
               EditTextWidget(
                 err: 'please enter password',
                 textInputType: TextInputType.text,
@@ -65,8 +86,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 hintFontSize: 20,
                 hint: 'Password',
                 label: 'please enter your password',),
-              SizedBox(height: 45,),
-
+              SizedBox(height: 15,),
+              EditTextWidget(
+                err: 'please confirm password',
+                textInputType: TextInputType.text,
+                controller: confirmPasswordController,
+                hintFontSize: 20,
+                hint: 'Confirm Password',
+                label: 'please confirm your password',),
+              SizedBox(height: 35,),
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(left:25,right: 25,top: 30),
@@ -88,6 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),),
                 ),
               ),
+              SizedBox(height: 15,),
               Center(
                 child: Text.rich(
                   TextSpan(

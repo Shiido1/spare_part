@@ -7,6 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/app_logo" />
+            android:src="@mipmap/gapa_logo" />
     </item> -->
 </layer-list>

@@ -30,7 +30,9 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(width: 100,),
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
+                      onPressed: ()=>Navigator.pop(context),),
                     TextViewWidget(
                       text: "Payment",
                       color: AppColor.yellow,
