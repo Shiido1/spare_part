@@ -8,6 +8,8 @@ import 'package:sparepart/screens/profile_screen/order/order_screen.dart';
 import 'package:sparepart/screens/profile_screen/settings/settings.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
+import 'package:sparepart/utils/instances.dart';
+import 'package:sparepart/utils/page_route/navigator.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -47,6 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 textCard(text: 'Settings',icon: AppAssets.settings,screen: Settings()),
                 textCard(text: 'Privacy Policy',icon: AppAssets.privacyPolicy),
                 textCard(text: 'Help',icon: AppAssets.help),
+                logoutTextCard(text: 'Logout'),
               ],
             ),
           ),
@@ -85,6 +88,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SizedBox(width: 20,),
             SvgPicture.asset(icon),
+            SizedBox(width: 35,),
+            TextViewWidget(
+              text: '$text',
+              color: AppColor.black,textSize: 20,)
+          ],
+        ),
+      ),
+    ),
+  );
+  Widget logoutTextCard({String text})=> InkWell(
+    onTap: () async {
+      await preferencesHelper.remove();
+      PageRouter.gotoNamed(Routes.LOGIN, context);
+    },
+    child: Card(
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 20,),
+            Icon(Icons.logout,size: 30),
             SizedBox(width: 35,),
             TextViewWidget(
               text: '$text',

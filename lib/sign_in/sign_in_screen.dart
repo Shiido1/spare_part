@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password.dart';
-import 'package:sparepart/screens/profile_screen/main_screen.dart';
+import 'package:sparepart/sign_in/model.dart';
+import 'package:sparepart/sign_in/provider.dart';
 import 'package:sparepart/sign_up/sign_up_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
+import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
 
@@ -19,9 +22,52 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   bool checkedValue = false;
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController;
+  TextEditingController passwordController;
+  SignInProvider signInProvider;
+  bool _isEmail = false;
+  bool _isPassword = false;
 
+  @override
+  void initState() {
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    signInProvider = Provider.of<SignInProvider>(context, listen:false);
+    signInProvider.initialize(context);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  bool _validateInput(){
+    if (emailController.text.isEmpty ||
+        !validateEmail(emailController.text)) {
+      setState(() => _isEmail = true);
+      return false;
+    }
+
+    if (passwordController.text.isEmpty||
+        !isPasswordCompliant(passwordController.text)) {
+      setState(() => _isPassword = true);
+      return false;
+    }
+
+    return true;
+  }
+
+  void signIn() {
+    FocusScope.of(context).unfocus();
+    if (_validateInput())
+      signInProvider.loginUser(
+          map: SignInModel.toSignInJson(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim()), context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,15 +112,20 @@ class _SignInScreenState extends State<SignInScreen> {
                 controller: emailController,
                 hint: 'Email',
                 hintFontSize: 20,
-                label: 'please enter your email',),
+                label: 'please enter your email',
+                isValidationError: _isEmail,
+                textCallBack: (_) => setState(() => _isEmail = false),),
               SizedBox(height: 25,),
               EditTextWidget(
                 err: 'please enter password',
+                obsecure: true,
                 textInputType: TextInputType.text,
                 controller: passwordController,
                 hintFontSize: 20,
                 hint: 'Password',
-                label: 'please enter your password',),
+                label: 'please enter your password',
+                isValidationError: _isPassword,
+                textCallBack: (_) => setState(() => _isPassword = false),),
               SizedBox(height: 45,),
               Align(
                 alignment: Alignment.centerRight,
@@ -107,12 +158,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left:25,right: 25,top: 30),
                   child: TextButton(
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MainScreen()),
-                      );
-                    },
+                    onPressed: ()=>signIn(),
                     child: TextViewWidget(
                       text: 'Login',
                       textSize: 23,
