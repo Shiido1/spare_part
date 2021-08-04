@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sparepart/dashboard/provider.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -12,6 +14,16 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+
+  TopProductProvider topProductProvider;
+
+  @override
+  void initState() {
+    topProductProvider = Provider.of<TopProductProvider>(context, listen: false);
+    topProductProvider.init(context);
+    topProductProvider.topProductProvider();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
