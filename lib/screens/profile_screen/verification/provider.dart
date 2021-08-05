@@ -29,13 +29,13 @@ class OtpProviders extends ChangeNotifier {
         PageRouter.gotoNamed(Routes.DASHBOARD_SCREEN, _context);
         notifyListeners();
       }, failure: (NetworkExceptions error, _, statusMessage) async {
-        await _progressIndicator.hideLoader();
+         _progressIndicator.hideLoader();
         showToast(this._context,
             message: NetworkExceptions.getErrorMessage(error));
       });
       notifyListeners();
     } catch (e) {
-      await _progressIndicator.hideLoader();
+      _progressIndicator.hideLoader();
       debugPrint('Error: $e');
     }
   }

@@ -167,7 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 textCallBack: (_) => setState(() => _isEmail = false),),
               SizedBox(height: 15,),
               EditTextWidget(
-                err: 'please enter password',
+                err: 'please enter an eight digit password',
                 textInputType: TextInputType.text,
                 controller: passwordController,
                 hintFontSize: 20,

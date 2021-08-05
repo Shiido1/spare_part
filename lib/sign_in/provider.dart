@@ -37,12 +37,11 @@ class SignInProvider extends ChangeNotifier {
           errorMsg = 'check email and password and try again';
           showToast(this._context, message: errorMsg);
           notifyListeners();
-        }else{
+        }
           showToast(this._context,
               message: NetworkExceptions.getErrorMessage(error));
           loader.hideLoader();
           notifyListeners();
-        }
       });
     } catch (e) {
       loader.hideLoader();

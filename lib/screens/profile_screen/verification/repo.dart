@@ -12,8 +12,7 @@ class OtpApiRepository {
     };
     try {
       final response =
-      await networkClient.makePostRequest("verify",
-          data: token);
+      await networkClient.makePostRequest("verify",data: token);
       final _finalData = OtpModel.fromJson(response.data);
 
       return ApiResponse.success(
