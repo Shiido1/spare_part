@@ -6,7 +6,7 @@ import 'package:sparepart/utils/instances.dart';
 import 'model.dart';
 
 class LoginApiRepository {
-  Future<ApiResponse<dynamic>> loginUser({@required BuildContext context,@required Map map}) async {
+  Future<dynamic> loginUser({@required BuildContext context,@required Map map}) async {
     try {
 
       final _response =

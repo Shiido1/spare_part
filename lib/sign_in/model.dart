@@ -40,7 +40,7 @@ class UserData {
   String lastName;
   String profileImage;
   String phoneNumber;
-  Null state;
+  String state;
   String address;
   String email;
 

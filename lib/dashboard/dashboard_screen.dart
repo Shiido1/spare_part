@@ -76,7 +76,7 @@ class _DashBoardState extends State<DashBoard> {
       builder: (_,provider,__){
       if (provider.productModel == null) {
         return Center(
-            child: TextViewWidget(text: 'No product', color: AppColor.black));
+            child: CircularProgressIndicator());
       }else{
         return Container(
           height: MediaQuery.of(context).size.height/2,

@@ -10,6 +10,7 @@ JayNetworkClient(
     interceptors: addPredefinedInterceptor()
 );
 
+final BASE_URL = 'https://admin.gapaautoparts.com/api/';
 final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
 
 void showToast(BuildContext context,
