@@ -17,7 +17,7 @@ class TopProductProvider extends ChangeNotifier {
   void topProductProvider() async {
     try {
       productModel=await topProductRepo.topProductRepo();
-      showToast(this._context, message: 'loaded');
+      // showToast(this._context, message: 'loaded');
       notifyListeners();
     } catch (e) {
       showToast(this._context, message: 'Failed.. Please try again');

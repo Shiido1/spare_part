@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:jaynetwork/interceptor/retry/add_interceptor.dart';
 import 'package:jaynetwork/network/dio_client.dart';
 import 'package:sparepart/utils/pref_manage.dart';
@@ -11,6 +12,7 @@ JayNetworkClient(
 );
 
 final BASE_URL = 'https://admin.gapaautoparts.com/api/';
+final String url = 'https://gapaautoparts.com';
 final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
 
 void showToast(BuildContext context,
@@ -35,4 +37,12 @@ bool isPasswordCompliant(String password, [int minLength = 8]) {
   }
   bool _hasMinLength = password.length >= minLength;
   return _hasMinLength;
+}
+
+String getNairaSign(BuildContext context, dynamic amount) {
+  // amount = double.parse(amount.toString()) / 100;
+  if (amount.toString().contains('.')) {
+    return '\u20A6$amount';
+  }
+  return '${NumberFormat.simpleCurrency(name: "NGN").format(int.parse(amount.toString()))}';
 }

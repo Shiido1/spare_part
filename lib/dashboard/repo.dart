@@ -39,6 +39,7 @@ class TopProductRepo{
               );
             productList.add(product);
             print('print pro duct $i ${product.name}');
+            print('print pro duct $i ${product.imgUrl}');
       }
       return productList;
     } catch (e) {

@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sparepart/dashboard/provider.dart';
+import 'package:sparepart/screens/profile_screen/offer/on_pressed_discount_screen.dart';
+import 'package:sparepart/screens/profile_screen/order/order_screen.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
@@ -49,57 +52,64 @@ class _DashBoardState extends State<DashBoard> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Container(
-                  decoration: BoxDecoration(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
+                decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(30),
                         topLeft: Radius.circular(30))
-                  ),
-                  child: Column(
-                      children: [
-                        customCard(),
+                ),
+                child: Column(
+                  children: [
+                    customCard(titleText: 'Top Products'),
                     Container(),
-                      ],
-                    ),
+                  ],
                 ),
               ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget customCard() {
+  Widget customCard({String titleText}) {
     return  Consumer<TopProductProvider>(
-      builder: (_,provider,__){
-      if (provider.productModel == null) {
-        return Center(
-            child: CircularProgressIndicator());
-      }else{
-        return Container(
-          height: MediaQuery.of(context).size.height/2,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: provider.productModel.length,
-            itemBuilder: (BuildContext context, int index) {
-              var productLog = provider.productModel[index];
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                color: AppColor.yellow,
-                child: Padding(
-                  padding: EdgeInsets.all(14.0),
-                  child: Column(
-                    children: [
-                      Row(
+      builder: (_,provider,__) {
+        if (provider.productModel == null) {
+          return Center(
+              child: SpinKitCircle(
+                color: AppColor.purple,
+                size: 50,
+              ));
+        }else{
+          return Container(
+            height: 220,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: AppColor.yellow,
+              child: Padding(
+                padding: EdgeInsets.all(14.0),
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap:()=> Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  OrderScreen(
+                                    screenTitle: titleText,
+                                  ))),
+                      child: Row(
                         children: <Widget>[
                           TextViewWidget(
-                            text: productLog?.description??'',
+                            text: titleText,
                             color: AppColor.black,
-                            textSize: 14,),
+                            fontWeight: FontWeight.w500,
+                            textSize: 16,),
                           Spacer(),
                           TextViewWidget(
                             text: 'See all',
@@ -107,76 +117,78 @@ class _DashBoardState extends State<DashBoard> {
                             textSize: 14,)
                         ],
                       ),
-                      Divider(thickness: 0.7),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                              child: Column(
+                    ),
+                    Divider(thickness: 0.5,color: AppColor.black,),
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: provider.productModel.length,
+                        itemBuilder: (BuildContext context, int index){
+                          var productLog = provider.productModel[index];
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
                                 children: [
-                                  Container(
-                                    color:AppColor.purple,
-                                    height: 100,
-                                    child: CachedNetworkImage(
-                                      imageUrl: '$url${productLog?.imgUrl ?? ''}',
-                                      placeholder: (context, url) => CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) => Icon(Icons.error),
+                                  Expanded(
+                                    child: Container(
+                                      color:AppColor.purple,
+                                      height: 152,
+                                      width: 115,
+                                      child: InkWell(
+                                        onTap: ()=>Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    OnPressedDiscountScreen(
+                                                      imageText: productLog.imgUrl,
+                                                      priceText: productLog.price.toString(),
+                                                      descriptionText: productLog.description,
+                                                      categoryText: productLog.category,
+                                                      nameText: productLog.name,
+                                                    ))),
+                                        child: CachedNetworkImage(
+                                          imageUrl: '$url${productLog?.imgUrl ?? ''}',
+                                          placeholder: (context, url) => CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                          // maxHeightDiskCache: 115,
+                                          // maxWidthDiskCache: 110,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(height: 10,),
-                                  TextViewWidget(
-                                      text: productLog?.name??'', color: AppColor.black,textSize: 14)
+                                  SizedBox(height: 14,),
+                                  InkWell(
+                                    onTap:()=>Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OnPressedDiscountScreen(
+                                                  imageText: productLog.imgUrl,
+                                                  priceText: productLog.price.toString(),
+                                                  descriptionText: productLog.description,
+                                                  categoryText: productLog.category,
+                                                  nameText: productLog.name,
+                                                ))),
+                                    child: TextViewWidget(
+                                        text: productLog?.name??'', color: AppColor.black,textSize: 14),
+                                  )
                                 ],
-                              )),
-                          SizedBox(width: 5,),
-                          Expanded(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    color:AppColor.purple,
-                                    height: 100,
-                                    child: CachedNetworkImage(
-                                      imageUrl: '$url${productLog?.imgUrl1 ?? ''}',
-                                      placeholder: (context, url) => CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) => Icon(Icons.error),
-                                    ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  TextViewWidget(
-                                      text: productLog?.name??'', color: AppColor.black,textSize: 14)
-                                ],
-                              )),
-                          SizedBox(width: 5,),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Container(
-                                  color:AppColor.purple,
-                                  height: 100,
-                                  child: CachedNetworkImage(
-                                    imageUrl: '$url${productLog?.imgUrl2 ?? ''}',
-                                    placeholder: (context, url) => CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) => Icon(Icons.error),
-                                  ),
-                                ),
-                                SizedBox(height: 10,),
-                                TextViewWidget(
-                                  text: productLog?.name??'', color: AppColor.black,textSize: 14,)
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        );
-      }
-    },
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                )
+              )
+              ,
+            )
+          );
+        }
+      },
     );
   }
 }

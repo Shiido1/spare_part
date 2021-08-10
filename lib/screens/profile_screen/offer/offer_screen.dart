@@ -33,9 +33,7 @@ class _OfferScreenState extends State<OfferScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
-                      onPressed: ()=>Navigator.pop(context),),
+                    Container(),
                     TextViewWidget(
                       text: "Offer",
                       color: AppColor.yellow,

@@ -1,13 +1,34 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sparepart/dashboard/provider.dart';
+import 'package:sparepart/screens/profile_screen/verification/provider.dart';
+import 'package:sparepart/sign_in/provider.dart';
+import 'package:sparepart/sign_up/provider.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
+import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({Key key}) : super(key: key);
+
+  final String screenTitle;
+  // final String image;
+  // final String name;
+  // final String price;
+  // final String date;
+
+  OrderScreen({
+    Key key,
+    this.screenTitle,
+    // this.image,
+    // this.name,
+    // this.price,
+    // this.date
+  }) : super(key: key);
 
   @override
   _OrderScreenState createState() => _OrderScreenState();
@@ -34,11 +55,11 @@ class _OrderScreenState extends State<OrderScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
+                      widget.screenTitle == null?Container():IconButton(
                         icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
                         onPressed: ()=>Navigator.pop(context),),
                       TextViewWidget(
-                        text: "Order",
+                        text: widget.screenTitle==null?"Order":widget.screenTitle,
                         color: AppColor.yellow,
                         fontWeight: FontWeight.bold,
                         textSize: 24,),
@@ -73,10 +94,6 @@ class _OrderScreenState extends State<OrderScreen> {
                     ),
                     SizedBox(height: 15,),
                     orderItemContainer(),
-                    orderItemContainer(),
-                    orderItemContainer(),
-                    orderItemContainer(),
-                    orderItemContainer(),
                   ],
                 ),
               )
@@ -110,57 +127,83 @@ class _OrderScreenState extends State<OrderScreen> {
     ),
   );
 
-  Widget orderItemContainer()=>Container(
-    height: 120,
-    color: Colors.white,
-    child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image(
-              image: AssetImage(
-                AppAssets.tyreWheel,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget orderItemContainer()=>Consumer<TopProductProvider>(builder: (
+      BuildContext context,
+      provider1, Widget child) {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: provider1.productModel.length,
+        itemBuilder: (BuildContext context, int index) {
+          var productLog = provider1.productModel[index];
+          return Container(
+            height: 120,
+            color: Colors.white,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 10,),
-                TextViewWidget(
-                    text: 'Wheels &  Tires',
-                    color: AppColor.black,
-                    textSize: 18,
-                fontWeight: FontWeight.bold,),
-                SizedBox(height: 5,),
-                TextViewWidget(
-                    text: 'N10000',
-                    fontWeight: FontWeight.bold,
-                    color: AppColor.purple),
-                SizedBox(height: 5,),
-                TextButton(
-                  onPressed: (){},
-                  child: TextViewWidget(
-                    text: 'Processing',
-                    textSize: 15,
-                    color: AppColor.black,),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
-                    primary: AppColor.grey,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: CachedNetworkImage(
+                        imageUrl: '$url${productLog.imgUrl}',
+                        placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
                     ),
-                  ),)
+                    SizedBox(width: 15,),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left:8.0,right: 15),
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextViewWidget(
+                              text: '${productLog.name}',
+                              color: AppColor.black,
+                              textSize: 18,
+                              fontWeight: FontWeight.bold,),
+                            SizedBox(height: 10,),
+                            TextViewWidget(
+                                text: '${productLog.price}',
+                                fontWeight: FontWeight.bold,
+                                textSize: 16,
+                                color: AppColor.purple),
+                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 24,
+                              child: TextButton(
+                                onPressed: (){},
+                                child: TextViewWidget(
+                                  text: 'Processing',
+                                  textSize: 15,
+                                  color: AppColor.black,),
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
+                                  primary: AppColor.grey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0)
+                                  ),
+                                ),),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15,),
+                    TextViewWidget(
+                        text: '4 May, 2020',
+                        color: AppColor.black)
+                  ],
+                ),
+                 Divider(thickness: 0.7, color: Colors.black26,)
               ],
             ),
-            TextViewWidget(
-                text: '4 May, 2020',
-                color: AppColor.black)
-          ],
-        ),
-        Expanded(child: Divider(thickness: 0.7, color: Colors.black26,))
-      ],
-    ),
-  );
+          );
+        },);
+  },);
 }

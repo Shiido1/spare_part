@@ -1,13 +1,28 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparepart/screens/profile_screen/cart/add_to_cart_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
+import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
 class OnPressedDiscountScreen extends StatefulWidget {
-  const OnPressedDiscountScreen({Key key}) : super(key: key);
+  final String imageText;
+  final String priceText;
+  final String categoryText;
+  final String nameText;
+  final String descriptionText;
+
+  const OnPressedDiscountScreen({
+    Key key,
+    this.imageText,
+    this.priceText,
+    this.categoryText,
+    this.nameText,
+    this.descriptionText}) : super(key: key);
+
 
   @override
   _OnPressedDiscountScreenState createState() => _OnPressedDiscountScreenState();
@@ -32,10 +47,10 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
               color: Colors.white,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height/2,
-              child: Image(
-                image: AssetImage(AppAssets.tyreWheel),
-                height: 30,
-                width: 100,
+              child: CachedNetworkImage(
+                imageUrl: '$url${widget.imageText}',
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             Padding(
@@ -52,10 +67,10 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Row(
-                            mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment:MainAxisAlignment.spaceAround,
                             children: [
                               TextViewWidget(
-                                text: '7000',
+                                text: widget.priceText,
                                 color: AppColor.black,
                                 textSize: 18,
                                 fontWeight: FontWeight.bold,),
@@ -63,20 +78,18 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left:12,right: 12),
+                                    child: TextViewWidget(
+                                      textAlign: TextAlign.center,
+                                      text: widget.nameText,
+                                      fontWeight:FontWeight.w500,
+                                      color: AppColor.black,textSize: 20,),
+                                  ),
                                   TextViewWidget(
-                                    text: 'Wheels & Tires',
-                                    fontWeight:FontWeight.w500,
-                                    color: AppColor.black,textSize: 20,),
-                                  TextViewWidget(
-                                    text: 'Car Parts',
+                                    text: widget.categoryText,
                                     fontWeight:FontWeight.w500,
                                     color: AppColor.black,textSize: 17,),
-                                  TextViewWidget(
-                                    text: 'Spare Parts',
-                                    fontWeight:FontWeight.w500,
-                                    color: AppColor.black,textSize: 17,),
-
-
                                 ],),
                               ),
                               Row(
@@ -132,7 +145,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextViewWidget(
-                              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec iaculis felis arcu, sit amet interdum sapien vehicula at. Vestibulum dignissim libero nec mauris egestas mattis. Fusce odio ante, eleifend non nisi a, facilisis obortis nulla. Donec posuere nisl at felis molestie dignissim.',
+                              text: widget.descriptionText,
                               color: Colors.white,
                               textSize: 17,
                             ),
@@ -152,7 +165,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextViewWidget(
-                              text: 'N10,000',
+                              text: getNairaSign(context, widget.priceText),
                               color: AppColor.black,
                               textSize: 20,
                               fontWeight: FontWeight.bold,),
@@ -170,15 +183,18 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                   color: AppColor.purple,
                                 ),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      AppAssets.shoppingCart,
-                                      color: Colors.white,),
-                                    TextViewWidget(
-                                        text: 'Add To Cart',
-                                        color: Colors.white)
-                                  ],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AppAssets.shoppingCart,
+                                        color: Colors.white,),
+                                      TextViewWidget(
+                                          text: 'Add To Cart',
+                                          color: Colors.white)
+                                    ],
+                                  ),
                                 ),
                               ),
                             )

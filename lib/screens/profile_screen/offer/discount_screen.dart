@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sparepart/screens/profile_screen/offer/on_pressed_discount_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -18,57 +17,53 @@ class _DiscountScreenState extends State<DiscountScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height/4,
-                  decoration: BoxDecoration(
-                    color: AppColor.purple,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
-                        onPressed: ()=>Navigator.pop(context),),
-                      TextViewWidget(
-                        text: "Order",
-                        color: AppColor.yellow,
-                        textSize: 25,
-                      fontWeight: FontWeight.bold,),
-                      SizedBox(
-                        height: 90,
-                        width: 90,
-                        child: ClipOval(
-                          child: Image(
-                            image: AssetImage(AppAssets.pic),
-                          ),
-
-                        ),
-                      ),
-
-                    ],
-                  ),
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height/4,
+                decoration: BoxDecoration(
+                  color: AppColor.purple,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      orderItemContainer(screen:OnPressedDiscountScreen()),
-                      orderItemContainer(screen:OnPressedDiscountScreen()),
-                      orderItemContainer(screen:OnPressedDiscountScreen()),
-                      orderItemContainer(screen:OnPressedDiscountScreen()),
-                      orderItemContainer(screen:OnPressedDiscountScreen()),
-                  ]
-                  ),
-                )
-              ],
-            ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios,color: AppColor.yellow,),
+                      onPressed: ()=>Navigator.pop(context),),
+                    TextViewWidget(
+                      text: "Order",
+                      color: AppColor.yellow,
+                      textSize: 25,
+                    fontWeight: FontWeight.bold,),
+                    SizedBox(
+                      height: 90,
+                      width: 90,
+                      child: ClipOval(
+                        child: Image(
+                          image: AssetImage(AppAssets.pic),
+                        ),
+
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    orderItemContainer(),
+                    orderItemContainer(),
+                    orderItemContainer(),
+                    orderItemContainer(),
+                    orderItemContainer(),
+                ]
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -76,12 +71,12 @@ class _DiscountScreenState extends State<DiscountScreen> {
   }
 
   Widget orderItemContainer({Widget screen})=>InkWell(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
-      );
-    },
+    // onTap: (){
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => screen),
+    //   );
+    // },
     child: Container(
       height: 150,
       color: Colors.white,
@@ -102,10 +97,9 @@ class _DiscountScreenState extends State<DiscountScreen> {
                   TextViewWidget(
                       text: 'Wheels &  Tires',
                       color: AppColor.black,
-                    textSize: 20,
+                      textSize: 20,
                       fontWeight: FontWeight.bold,),
-                  SizedBox(height: 10,),
-
+                  SizedBox(height: 10),
                   Column(
                     children: [
                       TextButton(
@@ -127,7 +121,7 @@ class _DiscountScreenState extends State<DiscountScreen> {
                         color: AppColor.black,
                         textSize: 15,)
                     ],
-                  )
+                  ),
                 ],
               ),
               TextViewWidget(
