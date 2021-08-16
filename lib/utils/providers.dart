@@ -13,5 +13,9 @@ class Providers {
     ChangeNotifierProvider<OtpProviders>(create: (_) => OtpProviders()),
     ChangeNotifierProvider<UtilityProvider>(create: (_) => UtilityProvider()),
     ChangeNotifierProvider<TopProductProvider>(create: (_) => TopProductProvider()),
+    ChangeNotifierProvider<FeaturedProductProvider>(create: (_) => FeaturedProductProvider()),
+    ChangeNotifierProvider<BrandsProvider>(create: (_) => BrandsProvider()),
+    ChangeNotifierProvider<CategoriesProvider>(create: (_) => CategoriesProvider()),
+    // ChangeNotifierProvider<Cart>(create: (_) => Cart()),
   ];
 }

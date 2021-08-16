@@ -107,8 +107,7 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget container({String text})=> InkWell(
     onTap: (){
       setState(() {
-        isOnTap = true;
-        print('purple');
+        isOnTap = !isOnTap;
       });
     },
     child: Container(
@@ -135,15 +134,14 @@ class _OrderScreenState extends State<OrderScreen> {
         itemCount: provider1.productModel.length,
         itemBuilder: (BuildContext context, int index) {
           var productLog = provider1.productModel[index];
-          return Container(
+          return Container( 
             height: 120,
             color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
                       width: 100,
@@ -174,29 +172,14 @@ class _OrderScreenState extends State<OrderScreen> {
                                 textSize: 16,
                                 color: AppColor.purple),
                             SizedBox(height: 10,),
-                            SizedBox(
-                              height: 24,
-                              child: TextButton(
-                                onPressed: (){},
-                                child: TextViewWidget(
-                                  text: 'Processing',
-                                  textSize: 15,
-                                  color: AppColor.black,),
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
-                                  primary: AppColor.grey,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)
-                                  ),
-                                ),),
-                            )
+
                           ],
                         ),
                       ),
                     ),
                     SizedBox(width: 15,),
                     TextViewWidget(
-                        text: '4 May, 2020',
+                        text: '${productLog.createdAt.substring(0,10)}',
                         color: AppColor.black)
                   ],
                 ),
