@@ -114,6 +114,7 @@ class _OrderScreenFeaturedProductState extends State<OrderScreenFeaturedProduct>
       provider1, Widget child) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: provider1.featuredProductModel.length,
       itemBuilder: (BuildContext context, int index) {
         var productLog = provider1.featuredProductModel[index];

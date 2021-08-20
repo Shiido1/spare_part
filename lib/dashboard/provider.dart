@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:sparepart/dashboard/repo.dart';
 import 'package:sparepart/utils/instances.dart';
 
-import 'model.dart';
+import 'model/brand_model.dart';
+import 'model/category_model.dart';
+import 'model/model.dart';
 
 TopProductRepo topProductRepo = TopProductRepo();
 FeaturedProductRepo featuredProductRepo = FeaturedProductRepo();
@@ -15,29 +17,6 @@ class TopProductProvider extends ChangeNotifier {
   List<ProductModel> items = [];
 
   ProductModel model;
-  double price=0.0;
-  bool isAdded = false;
-
-  void add(ProductModel item){
-    items.add(item);
-    price+=item.price;
-    if (items.length>1){
-      isAdded = true;
-      print('addes');
-      notifyListeners();
-    }else{
-      isAdded = false;
-    }
-    notifyListeners();
-  }
-
-  int get count{
-    return items.length;
-  }
-
-  double get totalPrice{
-    return price;
-  }
 
   void init(BuildContext context) {
     this._context = context;
@@ -54,6 +33,7 @@ class TopProductProvider extends ChangeNotifier {
     }
   }
 }
+
 class FeaturedProductProvider extends ChangeNotifier {
   BuildContext _context;
   List<ProductModel> featuredProductModel;

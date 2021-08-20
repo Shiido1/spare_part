@@ -114,6 +114,7 @@ class _OrderScreenCategoriesState extends State<OrderScreenCategories> {
       provider1, Widget child) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: provider1.categoriesModel.length,
       itemBuilder: (BuildContext context, int index) {
         var productLog = provider1.categoriesModel[index];

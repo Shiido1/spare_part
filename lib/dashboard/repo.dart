@@ -1,7 +1,10 @@
 import 'dart:convert';
-import 'package:sparepart/dashboard/model.dart';
+import 'package:sparepart/dashboard/model/model.dart';
 import 'package:http/http.dart' as http;
 import 'package:sparepart/utils/instances.dart';
+
+import 'model/brand_model.dart';
+import 'model/category_model.dart';
 
 class TopProductRepo{
 

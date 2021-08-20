@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+import 'package:sparepart/dashboard/model/model.dart';
 import 'package:sparepart/screens/profile_screen/landing_screen/splashscreen.dart';
 import 'package:sparepart/screens/profile_screen/main_screen.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/utils/page_route/route.dart';
 import 'package:sparepart/utils/pref_manage.dart';
 import 'package:sparepart/utils/providers.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+const String productName = "hv_box";
+
+Future<void> main() async {
 
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: AppColor.purple));
+  await Hive.initFlutter();
+  Hive.registerAdapter(ProductModelAdapter());
+  await Hive.openBox<ProductModel>(productName);
   runApp(MyApp());
 }
 
