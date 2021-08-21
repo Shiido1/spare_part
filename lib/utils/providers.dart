@@ -2,6 +2,7 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:sparepart/dashboard/provider.dart';
+import 'package:sparepart/screens/profile_screen/offer/add_to_cart_provider.dart';
 import 'package:sparepart/sign_in/provider.dart';
 import 'package:sparepart/sign_up/provider.dart';
 import 'package:sparepart/screens/profile_screen/verification/provider.dart';
@@ -16,6 +17,6 @@ class Providers {
     ChangeNotifierProvider<FeaturedProductProvider>(create: (_) => FeaturedProductProvider()),
     ChangeNotifierProvider<BrandsProvider>(create: (_) => BrandsProvider()),
     ChangeNotifierProvider<CategoriesProvider>(create: (_) => CategoriesProvider()),
-    // ChangeNotifierProvider<Cart>(create: (_) => Cart()),
+    ChangeNotifierProvider<Count>(create: (_) => Count()),
   ];
 }

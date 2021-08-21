@@ -70,14 +70,17 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     if (email == null)
-      return SpinKitCircle(
-        itemBuilder: (BuildContext context, int index) {
-          return DecoratedBox(
-            decoration: BoxDecoration(
-                color: index.isEven ? Colors.white : AppColor.purple,
-                shape: BoxShape.circle),
-          );
-        },
+      return Container(
+        color: Colors.white,
+        child: SpinKitCircle(
+          itemBuilder: (BuildContext context, int index) {
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                  color: index.isEven ? Colors.white : AppColor.purple,
+                  shape: BoxShape.circle),
+            );
+          },
+        ),
       );
     if (email == "" ) return SplashScreen();
     return MainScreen();
