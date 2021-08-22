@@ -41,7 +41,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
   @override
   void initState() {
     countProvider = Provider.of<Count>(context,listen: false);
-    // countProvider.init();
+    countProvider.init(context);
     super.initState();
   }
 
@@ -236,17 +236,17 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                   textSize: 20,
                                   fontWeight: FontWeight.bold,),
                                 InkWell(
-                                  onTap: ()=>provider.addingToCart(
+                                  onTap: (){provider.addingToCart(
                                       name: widget.nameText,
                                       price: int.parse(widget.priceText),
-                                      image: '$url${widget.imageText}'),
+                                      image: '$url${widget.imageText}');
+                                        provider.calculateTotalPrice();},
                                   child: Container(
                                     width: 150,
                                     height: 30,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(10)),
-                                      color:provider.isAdded==false?
-                                      AppColor.purple:Colors.green,
+                                      color:AppColor.purple,
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(5),
@@ -256,8 +256,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                             AppAssets.shoppingCart,
                                             color: Colors.white,),
                                           TextViewWidget(
-                                              text: provider.isAdded==false?
-                                              'Add To Cart':'Added To Cart',
+                                              text: 'Add To Cart',
                                               color: Colors.white)
                                         ],
                                       ),

@@ -1,26 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:sparepart/dashboard/model/model.dart';
+import 'package:sparepart/utils/instances.dart';
+
+import '../../../main.dart';
 
 class Count with ChangeNotifier{
 
   int priceCount;
   int count=0;
   int mainPrice=0;
-  int totalPrice;
+  int totalPrice=0;
   bool isAdded=false;
-  Box<ProductModel> contactsBox = Hive.box<ProductModel>('hv_box');
+  Box<ProductModel> contactsBox = Hive.box<ProductModel>(productName);
 
-  // init(){
-  //   count = 0 ;
-  //   mainPrice =
-  // }
+  BuildContext _context;
+
+  void init(BuildContext context) {
+    this._context = context;
+  }
 
   addingToCart({String image,String name,int price}){
-
-    contactsBox.add(ProductModel(imgUrl: image, name: name, price: price))
-        .then((value) =>
-        print('Added successfully'));
+    showToast(this._context, message: 'added');
+    contactsBox.add(ProductModel(imgUrl: image, name: name, price: price));
     isAdded = true;
     priceCount = 1;
     count++;
@@ -40,7 +42,7 @@ class Count with ChangeNotifier{
   }
 
   int calculateTotalPrice(){
-    totalPrice+=mainPrice * priceCount;
+    totalPrice=mainPrice * priceCount;
     print('printing total count: $totalPrice');
     notifyListeners();
     return totalPrice;

@@ -3,12 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:sparepart/dashboard/model/model.dart';
 import 'package:sparepart/main.dart';
+import 'package:sparepart/screens/profile_screen/offer/add_to_cart_provider.dart';
 import 'package:sparepart/screens/profile_screen/payment/payment_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
-import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
 
@@ -152,11 +153,15 @@ class _CartScreenState extends State<CartScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextViewWidget(
-              text: 'Total: N70,000',
-              color: AppColor.black,
-              textSize: 20,
-              fontWeight: FontWeight.bold,),
+            Consumer<Count>(
+              builder: (_,provider,__){
+                return TextViewWidget(
+                  text: '\u20A6${provider.totalPrice}',
+                  color: AppColor.black,
+                  textSize: 20,
+                  fontWeight: FontWeight.bold,);
+              },
+            ),
             InkWell(
               onTap: (){
                 Navigator.push(
