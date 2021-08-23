@@ -5,6 +5,7 @@ import 'package:sparepart/dashboard/dashboard_screen.dart';
 import 'package:sparepart/screens/profile_screen/profile_screen/profile.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
+import 'package:sparepart/utils/instances.dart';
 import 'offer/offer_screen.dart';
 import 'order/order_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
@@ -19,11 +20,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
 
   int selectedIndex=0;
+
   final screen = [
     DashBoard(),
     OrderScreen(),
     OfferScreen(),
     ProfileScreen()];
+
 
   @override
   Widget build(BuildContext context) {

@@ -6,11 +6,13 @@ import 'package:sparepart/screens/profile_screen/address/shipping_address_screen
 import 'package:sparepart/screens/profile_screen/edit_profile/edit_profile_screen.dart';
 import 'package:sparepart/screens/profile_screen/order/order_screen.dart';
 import 'package:sparepart/screens/profile_screen/settings/settings.dart';
+import 'package:sparepart/sign_in/provider.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/utils/page_route/navigator.dart';
 import 'package:sparepart/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key key}) : super(key: key);
@@ -20,40 +22,59 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  String firstName='',lastName='';
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  init()async{
+    firstName = await preferencesHelper.getStringValues(key: 'first_name');
+    lastName = await preferencesHelper.getStringValues(key: 'last_name');
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(height: 45,),
-                ClipOval(
-                  child: Image(
-                    image: AssetImage(AppAssets.pic),
-                  ),
+      body: Consumer<SignInProvider>(
+        builder: (_,provide,__){
+          return SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(height: 45,),
+                    ClipOval(
+                      child: Image(
+                        image: AssetImage(AppAssets.pic),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    TextViewWidget(
+                      text: "$firstName $lastName",
+                      color: AppColor.black,
+                      textSize: 28,),
+                    SizedBox(height: 10,),
+                    textCard(text: 'My Account',icon: AppAssets.user,screen: EditProfileScreen()),
+                    textCard(text: 'My Order',icon: AppAssets.myOrder,screen: OrderScreen()),
+                    textCard(text: 'Shipping Address',icon: AppAssets.address,screen: ShippingAddressScreen()),
+                    textCard(text: 'My Card',icon: AppAssets.creditCard,screen: AddCard()),
+                    textCard(text: 'Settings',icon: AppAssets.settings,screen: Settings()),
+                    textCard(text: 'Privacy Policy',icon: AppAssets.privacyPolicy),
+                    textCard(text: 'Help',icon: AppAssets.help),
+                    logoutTextCard(text: 'Logout'),
+                  ],
                 ),
-                SizedBox(height: 10,),
-                TextViewWidget(
-                    text: "Princess",
-                    color: AppColor.black,
-                textSize: 28,),
-                SizedBox(height: 10,),
-                textCard(text: 'My Account',icon: AppAssets.user,screen: EditProfileScreen()),
-                textCard(text: 'My Order',icon: AppAssets.myOrder,screen: OrderScreen()),
-                textCard(text: 'Shipping Address',icon: AppAssets.address,screen: ShippingAddressScreen()),
-                textCard(text: 'My Card',icon: AppAssets.creditCard,screen: AddCard()),
-                textCard(text: 'Settings',icon: AppAssets.settings,screen: Settings()),
-                textCard(text: 'Privacy Policy',icon: AppAssets.privacyPolicy),
-                textCard(text: 'Help',icon: AppAssets.help),
-                logoutTextCard(text: 'Logout'),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

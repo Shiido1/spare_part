@@ -70,81 +70,106 @@ class _CartScreenState extends State<CartScreen> {
         builder: (BuildContext context,  Box<ProductModel> box, _) {
           if (box.values.isEmpty)
             return Center(
-              child: Text(
-                'No item',
-                style: TextStyle(color: AppColor.black),),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  'No item',
+                  style: TextStyle(color: AppColor.black),),
+              ),
             );
-          return ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount:box.values.length,
-            itemBuilder: (context,index){
-              ProductModel item = box.get(index);
-              return Container(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10,left: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            child: CachedNetworkImage(
-                              imageUrl: '${item?.imgUrl??''}',
-                              placeholder: (context, url) => CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+          return Consumer<Count>(
+              builder: (_,provider,__) {
+                return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: box.values.length,
+                    itemBuilder: (context, index) {
+                      ProductModel item = box.get(index);
+                      return Dismissible(
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                        ),
+                        onDismissed: (direction) {
+                          provider.deleteCard(index);
+                        },
+                        key: UniqueKey(),
+                        child: Container(
+                          child: Column(
                             children: [
-                              TextViewWidget(
-                                text: '${item?.name??''}',
-                                textSize: 15, color: AppColor.black,),
                               Padding(
-                                padding: const EdgeInsets.only(top:8.0),
-                                child: TextViewWidget(
-                                  text: '\u20A6${item?.price??''}',
-                                  textSize: 12,
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColor.black,),
+                                padding: const EdgeInsets.only(
+                                    right: 10, left: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      child: CachedNetworkImage(
+                                        imageUrl: '${item?.imgUrl ?? ''}',
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      children: [
+                                        TextViewWidget(
+                                          text: '${item?.name ?? ''}',
+                                          textSize: 15, color: AppColor.black,),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0),
+                                          child: TextViewWidget(
+                                            text: '\u20A6${item?.price ?? ''}',
+                                            textSize: 12,
+                                            fontWeight: FontWeight.w800,
+                                            color: AppColor.black,),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(Icons.add),
+                                          onPressed: () {},
+                                          color: AppColor.black,),
+                                        SizedBox(
+                                          height: 20, width: 15,
+                                          child: Container(
+                                            color: AppColor.purple,
+                                            child: TextViewWidget(
+                                              text: '',
+                                              textSize: 9,
+                                              color: Colors.white,
+                                            ),),),
+                                        IconButton(
+                                          icon: Icon(Icons.minimize_sharp),
+                                          onPressed: () {},
+                                          color: AppColor.black,)
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 100, right: 15),
+                                child: Divider(
+                                  thickness: 0.2, color: AppColor.black,),
+                              )
                             ],
                           ),
-                          Column(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.add),
-                                onPressed: (){},
-                                color: AppColor.black,),
-                              SizedBox(
-                                height: 20,width: 15,
-                                child: Container(
-                                  color: AppColor.purple,
-                                  child:TextViewWidget(
-                                    text: '',
-                                    textSize: 9,
-                                    color: Colors.white,
-                                  ),),),
-                              IconButton(
-                                icon: Icon(Icons.minimize_sharp),
-                                onPressed: (){},
-                                color: AppColor.black,)
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:100,right: 15),
-                      child: Divider(thickness: 0.2,color: AppColor.black,),
-                    )
-                  ],
-                ),
-              );
-            },
+                        ),
+                      );
+                    },
+                  );
+              }
           );
         },
       ),
@@ -156,13 +181,12 @@ class _CartScreenState extends State<CartScreen> {
             Consumer<Count>(
               builder: (_,provider,__){
                 return TextViewWidget(
-                  text: '\u20A6${provider.totalPrice}',
+                  text: 'Total: \u20A6${provider.totalPrice}',
                   color: AppColor.black,
                   textSize: 20,
                   fontWeight: FontWeight.bold,);
-              },
-            ),
-            InkWell(
+              }),
+             InkWell(
               onTap: (){
                 Navigator.push(
                   context,

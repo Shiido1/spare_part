@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:jaynetwork/network/network_exceptions.dart';
+import 'package:sparepart/sign_in/model.dart';
 import 'package:sparepart/sign_in/repo.dart';
 import 'package:sparepart/utils/custom_loader/custom_loader_indicator.dart';
 import 'package:sparepart/utils/instances.dart';
@@ -12,6 +13,7 @@ class SignInProvider extends ChangeNotifier {
   BuildContext _context;
   CustomLoader loader;
   String errorMsg = 'Login Failed,try again';
+  SignInModel model;
 
   void initialize(BuildContext context) {
     this.loader = CustomLoader(context);

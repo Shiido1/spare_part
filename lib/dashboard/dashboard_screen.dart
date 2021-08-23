@@ -47,6 +47,8 @@ class _DashBoardState extends State<DashBoard> {
     categoriesProvider.categoriesProvider();
     super.initState();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +64,31 @@ class _DashBoardState extends State<DashBoard> {
                   color: AppColor.purple,
                 ),
                 // stack and add image profile and position it
-                child: Stack(
+                child: Column(
                   children: [
-                    // SvgPicture.asset(AppAssets.yellowLogo,),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20,bottom: 10,left: 10,right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image(image: AssetImage(AppAssets.yellowLogo),
+                              height: 150,width: 200,),
+                            ClipOval(
+                              child: Image(
+                                image: AssetImage(AppAssets.pic),
+                                height: 90,
+                                width: 90,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 185,left: 25,right: 25),
+                      padding: const EdgeInsets.only(
+                          left: 18,right: 18,bottom: 5),
                       child: EditTextWidget(
                         err: '', textInputType: TextInputType.text,
                         controller: controller,),
@@ -105,11 +127,7 @@ class _DashBoardState extends State<DashBoard> {
     return  Consumer<TopProductProvider>(
       builder: (_,provider,__) {
         if (provider.productModel == null) {
-          return Center(
-              child: SpinKitCircle(
-                color: AppColor.purple,
-                size: 50,
-              ));
+          return Container();
         }else{
           return Container(
             height: 220,
@@ -135,8 +153,8 @@ class _DashBoardState extends State<DashBoard> {
                           TextViewWidget(
                             text: titleText,
                             color: AppColor.black,
-                            fontWeight: FontWeight.w500,
-                            textSize: 16,),
+                            fontWeight: FontWeight.w600,
+                            textSize: 18,),
                           Spacer(),
                           TextViewWidget(
                             text: 'See all',
@@ -202,7 +220,9 @@ class _DashBoardState extends State<DashBoard> {
                                                   nameText: productLog.name,
                                                 ))),
                                     child: TextViewWidget(
-                                        text: productLog?.name??'', color: AppColor.black,textSize: 14),
+                                        text: productLog?.name??'',
+                                        color: AppColor.black,textSize: 14,
+                                        fontWeight: FontWeight.w500,),
                                   )
                                 ],
                               ),
@@ -255,8 +275,8 @@ class _DashBoardState extends State<DashBoard> {
                           TextViewWidget(
                             text: titleText,
                             color: AppColor.black,
-                            fontWeight: FontWeight.w500,
-                            textSize: 16,),
+                            fontWeight: FontWeight.w600,
+                            textSize: 18,),
                           Spacer(),
                           TextViewWidget(
                             text: 'See all',
@@ -320,7 +340,9 @@ class _DashBoardState extends State<DashBoard> {
                                                   nameText: productLog.name,
                                                 ))),
                                     child: TextViewWidget(
-                                        text: productLog?.name??'', color: AppColor.black,textSize: 14),
+                                        text: productLog?.name??'',
+                                        color: AppColor.black,textSize: 14,
+                                        fontWeight: FontWeight.w500,),
                                   )
                                 ],
                               ),
@@ -343,11 +365,7 @@ class _DashBoardState extends State<DashBoard> {
     return  Consumer<BrandsProvider>(
       builder: (_,provider,__) {
         if (provider.brandsModel == null) {
-          return Center(
-              child: SpinKitCircle(
-                color: AppColor.purple,
-                size: 50,
-              ));
+          return Container();
         }else{
           return Container(
             height: 220,
@@ -373,8 +391,8 @@ class _DashBoardState extends State<DashBoard> {
                           TextViewWidget(
                             text: titleText,
                             color: AppColor.black,
-                            fontWeight: FontWeight.w500,
-                            textSize: 16,),
+                            fontWeight: FontWeight.w600,
+                            textSize: 18,),
                           Spacer(),
                           TextViewWidget(
                             text: 'See all',
@@ -438,7 +456,9 @@ class _DashBoardState extends State<DashBoard> {
                                                   nameText: productLog.name,
                                                 ))),
                                     child: TextViewWidget(
-                                        text: productLog?.name??'', color: AppColor.black,textSize: 14),
+                                        text: productLog?.name??'',
+                                        color: AppColor.black,textSize: 14,
+                                        fontWeight: FontWeight.w500,),
                                   )
                                 ],
                               ),
@@ -461,11 +481,7 @@ class _DashBoardState extends State<DashBoard> {
     return  Consumer<CategoriesProvider>(
       builder: (_,provider,__) {
         if (provider.categoriesModel == null) {
-          return Center(
-              child: SpinKitCircle(
-                color: AppColor.purple,
-                size: 50,
-              ));
+          return Container();
         }else{
           return Container(
             height: 220,
@@ -491,8 +507,8 @@ class _DashBoardState extends State<DashBoard> {
                           TextViewWidget(
                             text: titleText,
                             color: AppColor.black,
-                            fontWeight: FontWeight.w500,
-                            textSize: 16,),
+                            fontWeight: FontWeight.w600,
+                            textSize: 18,),
                           Spacer(),
                           TextViewWidget(
                             text: 'See all',
@@ -556,7 +572,9 @@ class _DashBoardState extends State<DashBoard> {
                                                   priceText: '',
                                                 ))),
                                     child: TextViewWidget(
-                                        text: productLog?.title??'', color: AppColor.black,textSize: 14),
+                                        text: productLog?.title??'',
+                                        color: AppColor.black,textSize: 14,
+                                        fontWeight: FontWeight.w500,),
                                   )
                                 ],
                               ),
