@@ -20,7 +20,7 @@ class TopProductRepo{
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
       List decodedData = jsonDecode(response.body);
-      print('printing decoded stuff $decodedData');
+      print('printing decoded stuffi $decodedData');
       print('length ${decodedData.length}');
       for(int i = 0; i < decodedData.length;i++){
          product = ProductModel(
@@ -39,10 +39,12 @@ class TopProductRepo{
                 weightInKg: decodedData[i]['weight_in_kg'],
                 createdAt: decodedData[i]['createdAt'],
                 updatedAt: decodedData[i]['updatedAt'],
+                modelId: decodedData[i]['model_id'],
+                makerId: decodedData[i]['maker_id'],
+                brandId: decodedData[i]['brand_id'],
+                year: decodedData[i]['year'],
               );
             productList.add(product);
-            print('print pro duct $i ${product.name}');
-            print('print pro duct $i ${product.imgUrl}');
       }
       return productList;
     } catch (e) {
@@ -83,6 +85,10 @@ class FeaturedProductRepo{
                 weightInKg: decodedData[i]['weight_in_kg'],
                 createdAt: decodedData[i]['createdAt'],
                 updatedAt: decodedData[i]['updatedAt'],
+                modelId: decodedData[i]['model_id'],
+                makerId: decodedData[i]['maker_id'],
+                brandId: decodedData[i]['brand_id'],
+                year: decodedData[i]['year'],
               );
             featuredProductList.add(featuredProduct);
       }

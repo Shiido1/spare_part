@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
+// ignore: must_be_immutable
 class EditTextWidget extends StatelessWidget {
   final TextEditingController controller;
   final String label;
@@ -96,18 +97,9 @@ class EditTextWidget extends StatelessWidget {
           height: 15,
         ),
         Container(
-
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: AppColor.editTextBackground,
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.grey.withOpacity(0.5),
-            //     spreadRadius: 5,
-            //     blurRadius: 7,
-            //     offset: Offset(0, 3), // changes position of shadow
-            //   ),
-            // ],
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -115,15 +107,17 @@ class EditTextWidget extends StatelessWidget {
               children: <Widget>[
                 Visibility(
                     visible: showIconPicker,
-                    child: assetsName != null?SvgPicture.asset(assetsName):
-                    IconButton(
-                      color: Colors.black,
-                      iconSize: 28,
-                      icon: Icon(iconData),
-                      onPressed: iconPickerCallback,
-                    )
+                    child: assetsName != null
+                        ? SvgPicture.asset(assetsName)
+                        : IconButton(
+                            color: Colors.black,
+                            iconSize: 28,
+                            icon: Icon(iconData),
+                            onPressed: iconPickerCallback,
+                          )),
+                SizedBox(
+                  width: 25,
                 ),
-                SizedBox(width: 25,),
                 Flexible(
                   child: TextFormField(
                     readOnly: readOnly,
@@ -154,8 +148,7 @@ class EditTextWidget extends StatelessWidget {
                         hintText: hint,
                         labelText: label,
                         labelStyle: TextStyle(
-                            color: Colors.black54,
-                            fontSize: fontSize),
+                            color: Colors.black54, fontSize: fontSize),
                         hintStyle: TextStyle(
                             color: AppColor.editTextBackground,
                             fontSize: fontSize),
@@ -189,22 +182,22 @@ class EditTextWidget extends StatelessWidget {
 
 /// returns password icons
 Widget _getPasswordIcon(
-    bool isPassword,
-    bool togglePassword,
-    togglePasswordCallback,
-    ) {
+  bool isPassword,
+  bool togglePassword,
+  togglePasswordCallback,
+) {
   return Visibility(
     visible: isPassword,
     child: IconButton(
         icon: !togglePassword
             ? Icon(
-          Icons.visibility_off_outlined,
-          color: AppColor.black,
-        )
+                Icons.visibility_off_outlined,
+                color: AppColor.black,
+              )
             : Icon(
-          Icons.visibility_outlined,
-          color: AppColor.black,
-        ),
+                Icons.visibility_outlined,
+                color: AppColor.black,
+              ),
         onPressed: togglePasswordCallback),
   );
 }

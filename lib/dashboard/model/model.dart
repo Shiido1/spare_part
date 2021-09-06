@@ -29,27 +29,41 @@ class ProductModel {
   @HiveField(11)
   int stock;
   @HiveField(12)
-  int weightInKg;
+  String weightInKg;
   @HiveField(13)
   String createdAt;
   @HiveField(14)
   String updatedAt;
+  @HiveField(15)
+  int modelId;
+  @HiveField(16)
+  int makerId;
+  @HiveField(17)
+  String brandId;
+  @HiveField(18)
+  String year;
 
-  ProductModel({this.id,
-        this.name,
-        this.description,
-        this.imgUrl,
-        this.imgUrl1,
-        this.imgUrl2,
-        this.price,
-        this.discount,
-        this.category,
-        this.carId,
-        this.available,
-        this.stock,
-        this.weightInKg,
-        this.createdAt,
-        this.updatedAt});
+  ProductModel({
+    this.id,
+    this.name,
+    this.description,
+    this.imgUrl,
+    this.imgUrl1,
+    this.imgUrl2,
+    this.price,
+    this.discount,
+    this.category,
+    this.carId,
+    this.available,
+    this.stock,
+    this.weightInKg,
+    this.createdAt,
+    this.updatedAt,
+    this.brandId,
+    this.makerId,
+    this.modelId,
+    this.year
+  });
 
   ProductModel copyWith({
     String id,
@@ -64,9 +78,13 @@ class ProductModel {
     String carId,
     int available,
     int stock,
-    int weightInKg,
+    String weightInKg,
     String createdAt,
     String updatedAt,
+    int modelId,
+    int makerId,
+    String brandId,
+    String year,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -84,7 +102,10 @@ class ProductModel {
       weightInKg: weightInKg ?? this.weightInKg,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-    );
+      makerId: makerId ?? this.makerId,
+      modelId: modelId ?? this.modelId,
+      brandId: brandId ?? this.brandId,
+      year: year ?? this.year);
   }
 
   Map<String, dynamic> toMap() {
@@ -99,11 +120,15 @@ class ProductModel {
       'discount': discount,
       'category': category,
       'carId': carId,
-      'availble': available,
+      'available': available,
       'stock': stock,
       'weightInKg': weightInKg,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
+      'maker_id':makerId,
+      'model_id':modelId,
+      'brand_id':brandId,
+      'year':year,
     };
   }
 
@@ -123,6 +148,10 @@ class ProductModel {
     weightInKg = json['weight_in_kg'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    modelId = json['model_id'];
+    makerId = json['maker_id'];
+    brandId = json['brand_id'];
+    year = json['year'];
   }
 
   Map<String, dynamic> toJson() {
@@ -142,25 +171,30 @@ class ProductModel {
     data['weight_in_kg'] = this.weightInKg;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['model_id'] = this.modelId;
+    data['maker_id'] = this.makerId;
+    data['brand_id'] = this.brandId;
+    data['year'] = this.year;
     return data;
   }
 
   @override
   String toString() {
-    return
-      'ProductModel('
-          'id: $id,'
-          ' name: $name,'
-          ' description: $description,'
-          ' imgUrl: $imgUrl, '
-          'imgUrl1: $imgUrl1, '
-          'imgUrl2: $imgUrl2,'
-          ' price: $price, '
-          'discount: $discount,'
-          ' category: $category, '
-          'carId: $carId, available: $available,'
-          ' stock: $stock, weightInKg: $weightInKg, '
-          'createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProductModel('
+        'id: $id,'
+        ' name: $name,'
+        ' description: $description,'
+        ' imgUrl: $imgUrl, '
+        'imgUrl1: $imgUrl1, '
+        'imgUrl2: $imgUrl2,'
+        ' price: $price, '
+        'discount: $discount,'
+        ' category: $category, '
+        'carId: $carId, available: $available,'
+        ' stock: $stock, weightInKg: $weightInKg, '
+        'createdAt: $createdAt, updatedAt: $updatedAt'
+        'modelId: $modelId, makerId: $makerId'
+        'brandId: $brandId, year: $year)';
   }
 
   @override
@@ -182,28 +216,33 @@ class ProductModel {
         other.stock == stock &&
         other.weightInKg == weightInKg &&
         other.createdAt == createdAt &&
-        other.updatedAt == updatedAt;
+        other.updatedAt == updatedAt &&
+        other.modelId == modelId &&
+        other.makerId == makerId &&
+        other.brandId == brandId &&
+        other.year == year;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-    name.hashCode ^
-    description.hashCode ^
-    imgUrl.hashCode ^
-    imgUrl1.hashCode ^
-    imgUrl2.hashCode ^
-    price.hashCode ^
-    discount.hashCode ^
-    category.hashCode ^
-    carId.hashCode ^
-    available.hashCode ^
-    stock.hashCode ^
-    weightInKg.hashCode ^
-    createdAt.hashCode ^
-    updatedAt.hashCode;
+        name.hashCode ^
+        description.hashCode ^
+        imgUrl.hashCode ^
+        imgUrl1.hashCode ^
+        imgUrl2.hashCode ^
+        price.hashCode ^
+        discount.hashCode ^
+        category.hashCode ^
+        carId.hashCode ^
+        available.hashCode ^
+        stock.hashCode ^
+        weightInKg.hashCode ^
+        createdAt.hashCode ^
+        updatedAt.hashCode ^
+        modelId.hashCode ^
+        makerId.hashCode ^
+        brandId.hashCode ^
+        year.hashCode;
   }
 }
-
-
-

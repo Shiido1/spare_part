@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,18 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sparepart/utils/assetsString.dart';
 
+// ignore: must_be_immutable
 class ImageLoader extends StatelessWidget {
   ImageLoader(
       {this.width,
-        this.height,
-        this.path,
-        this.file,
-        this.color,
-        this.dColor,
-        this.isOnline = false,
-        this.onTap,
-        this.fit = BoxFit.contain,
-        Key key})
+      this.height,
+      this.path,
+      this.file,
+      this.color,
+      this.dColor,
+      this.isOnline = false,
+      this.onTap,
+      this.fit = BoxFit.contain,
+      Key key})
       : super(key: key);
 
   double width;
@@ -89,18 +89,18 @@ class ImageLoader extends StatelessWidget {
             backgroundColor: color != null ? color : Colors.transparent,
             child: path.contains(".svg")
                 ? SvgPicture.asset(
-              path,
-              width: width,
-              height: height,
-              color: dColor,
-              fit: fit,
-            )
+                    path,
+                    width: width,
+                    height: height,
+                    color: dColor,
+                    fit: fit,
+                  )
                 : Image.asset(
-              path,
-              width: width,
-              height: height,
-              fit: fit,
-            ),
+                    path,
+                    width: width,
+                    height: height,
+                    fit: fit,
+                  ),
           ),
         ),
       );
@@ -111,13 +111,13 @@ class ImageLoader extends StatelessWidget {
 // ignore: non_constant_identifier_names
 Widget CircleImage(
     {double width,
-      double height,
-      String path,
-      File file,
-      Color color,
-      Color dColor,
-      bool isOnline = false,
-      Function() onTap}) {
+    double height,
+    String path,
+    File file,
+    Color color,
+    Color dColor,
+    bool isOnline = false,
+    Function() onTap}) {
   if (file != null) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(height / 2),
@@ -191,16 +191,16 @@ Widget CircleImage(
           backgroundColor: color != null ? color : Colors.transparent,
           child: path.contains(".svg")
               ? SvgPicture.asset(
-            path,
-            width: width,
-            color: dColor,
-            height: height,
-          )
+                  path,
+                  width: width,
+                  color: dColor,
+                  height: height,
+                )
               : Image.asset(
-            path,
-            width: width,
-            height: height,
-          ),
+                  path,
+                  width: width,
+                  height: height,
+                ),
         ),
       ),
     );

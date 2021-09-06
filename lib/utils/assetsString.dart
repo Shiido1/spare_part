@@ -9,6 +9,7 @@ class AppAssets {
   static final String redFerrari = 'assets/image/red_ferrari.png';
   static final String success = 'assets/image/success.png';
   static final String logo = 'assets/image/logo.png';
+  // ignore: non_constant_identifier_names
   static final String gapa_logo = 'assets/image/gapa_logo.png';
   static final String purpleLogo = 'assets/image/purple_logo.png';
   static final String tyre = 'assets/image/tyre.png';
@@ -36,7 +37,7 @@ class AppAssets {
   static final String chinese = 'assets/image/chi.png';
   static final String japan = 'assets/image/jap.png';
   static final String turkey = 'assets/image/tur.png';
-  static final String newEngine= 'assets/image/engine.jpg';
+  static final String newEngine = 'assets/image/engine.jpg';
   static final String carBonet = 'assets/image/bonet_engine.jpg';
   static final String mechHand = 'assets/image/mech_hand.jpg';
   static final String poco = 'assets/image/poco.jpg';

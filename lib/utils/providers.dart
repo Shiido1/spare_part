@@ -1,4 +1,3 @@
-
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:sparepart/dashboard/provider.dart';
@@ -13,10 +12,13 @@ class Providers {
     ChangeNotifierProvider<SignInProvider>(create: (_) => SignInProvider()),
     ChangeNotifierProvider<OtpProviders>(create: (_) => OtpProviders()),
     ChangeNotifierProvider<UtilityProvider>(create: (_) => UtilityProvider()),
-    ChangeNotifierProvider<TopProductProvider>(create: (_) => TopProductProvider()),
-    ChangeNotifierProvider<FeaturedProductProvider>(create: (_) => FeaturedProductProvider()),
+    ChangeNotifierProvider<TopProductProvider>(
+        create: (_) => TopProductProvider()),
+    ChangeNotifierProvider<FeaturedProductProvider>(
+        create: (_) => FeaturedProductProvider()),
     ChangeNotifierProvider<BrandsProvider>(create: (_) => BrandsProvider()),
-    ChangeNotifierProvider<CategoriesProvider>(create: (_) => CategoriesProvider()),
+    ChangeNotifierProvider<CategoriesProvider>(
+        create: (_) => CategoriesProvider()),
     ChangeNotifierProvider<Count>(create: (_) => Count()),
   ];
 }

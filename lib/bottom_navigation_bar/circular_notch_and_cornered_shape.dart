@@ -71,14 +71,14 @@ class CircularNotchedAndCorneredRectangle extends NotchedShape {
       if (gapLocation != GapLocation.center)
         throw GapLocationException(
             'Wrong gap location in $CustomAppBar towards FloatingActionButtonLocation => '
-                'consider use ${GapLocation.center} instead of $gapLocation or change FloatingActionButtonLocation');
+            'consider use ${GapLocation.center} instead of $gapLocation or change FloatingActionButtonLocation');
     }
 
     if (guest.center.dx != host.width / 2) {
       if (gapLocation != GapLocation.end)
         throw GapLocationException(
             'Wrong gap location in $CustomAppBar towards FloatingActionButtonLocation => '
-                'consider use ${GapLocation.end} instead of $gapLocation or change FloatingActionButtonLocation');
+            'consider use ${GapLocation.end} instead of $gapLocation or change FloatingActionButtonLocation');
     }
 
     // The guest's shape is a circle bounded by the guest rectangle.
@@ -108,6 +108,7 @@ class CircularNotchedAndCorneredRectangle extends NotchedShape {
     double p2yA = math.sqrt(r * r - p2xA * p2xA);
     double p2yB = math.sqrt(r * r - p2xB * p2xB);
 
+    // ignore: deprecated_member_use
     List<Offset> p = List<Offset>(6);
 
     // p0, p1, and p2 are the control points for segment A.

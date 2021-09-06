@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TextViewWidget extends StatelessWidget {
   final String text;
   final double textSize;
@@ -17,16 +18,16 @@ class TextViewWidget extends StatelessWidget {
 
   TextViewWidget(
       {@required this.text,
-        this.textSize,
-        this.fontWeight,
-        this.fontStyle,
-        this.fontFamily,
-        @required this.color,
-        this.textAlign = TextAlign.left,
-        this.maxLines,
-        this.showIconPicker = false,
-        this.iconData,
-        this.onTapCallBack});
+      this.textSize,
+      this.fontWeight,
+      this.fontStyle,
+      this.fontFamily,
+      @required this.color,
+      this.textAlign = TextAlign.left,
+      this.maxLines,
+      this.showIconPicker = false,
+      this.iconData,
+      this.onTapCallBack});
 
   @override
   Widget build(BuildContext context) {

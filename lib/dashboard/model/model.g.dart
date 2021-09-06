@@ -6,8 +6,6 @@ part of 'model.dart';
 // TypeAdapterGenerator
 // **************************
 
-
-
 class ProductModelAdapter extends TypeAdapter<ProductModel> {
   @override
   final int typeId = 0;
@@ -19,28 +17,31 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ProductModel(
-      id: fields[0] as String,
-      name: fields[1] as String,
-      description: fields[2] as String,
-      imgUrl: fields[3] as String,
-      imgUrl1: fields[4] as String,
-      imgUrl2: fields[5] as String,
-      price: fields[6] as int,
-      discount: fields[7] as int,
-      category: fields[8] as String,
-      carId: fields[9] as String,
-      available: fields[10] as bool,
-      stock: fields[11] as int,
-      weightInKg: fields[12] as int,
-      createdAt: fields[13] as String,
-      updatedAt: fields[14] as String,
-    );
+        id: fields[0] as String,
+        name: fields[1] as String,
+        description: fields[2] as String,
+        imgUrl: fields[3] as String,
+        imgUrl1: fields[4] as String,
+        imgUrl2: fields[5] as String,
+        price: fields[6] as int,
+        discount: fields[7] as int,
+        category: fields[8] as String,
+        carId: fields[9] as String,
+        available: fields[10] as bool,
+        stock: fields[11] as int,
+        weightInKg: fields[12] as String,
+        createdAt: fields[13] as String,
+        updatedAt: fields[14] as String,
+        modelId: fields[15] as int,
+        makerId: fields[16] as int,
+        brandId: fields[17] as String,
+        year: fields[18] as String,);
   }
 
   @override
   void write(BinaryWriter writer, ProductModel obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -70,7 +71,15 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       ..writeByte(13)
       ..write(obj.createdAt)
       ..writeByte(14)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(15)
+      ..write(obj.modelId)
+      ..writeByte(16)
+      ..write(obj.makerId)
+      ..writeByte(17)
+      ..write(obj.brandId)
+      ..writeByte(18)
+      ..write(obj.year);
   }
 
   @override
@@ -79,7 +88,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is ProductModelAdapter &&
-              runtimeType == other.runtimeType &&
-              typeId == other.typeId;
+      other is ProductModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

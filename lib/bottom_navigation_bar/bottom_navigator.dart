@@ -9,6 +9,7 @@ import 'package:sparepart/widgets/image_loader.dart';
 
 import 'custom_bottom_nav.dart';
 
+// ignore: must_be_immutable
 class BottomNavigator extends StatefulWidget {
   int bottomNavIndex;
 
@@ -20,7 +21,7 @@ class BottomNavigator extends StatefulWidget {
 
 class _BottomNavigatorState extends State<BottomNavigator>
     with SingleTickerProviderStateMixin {
-  int bottomNavIndex=0;
+  int bottomNavIndex = 0;
   String title;
 
   _BottomNavigatorState(this.bottomNavIndex);
@@ -37,14 +38,14 @@ class _BottomNavigatorState extends State<BottomNavigator>
   // ];
   // String iconSearch = AppAssets.home;
 
-
   final iconList = <String>[
-    AppAssets.turkey, AppAssets.japan, AppAssets.chinese, AppAssets.english
+    AppAssets.turkey,
+    AppAssets.japan,
+    AppAssets.chinese,
+    AppAssets.english
   ];
 
-  final screen = [DashBoard(),OrderScreen(),OfferScreen(),ProfileScreen()];
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final screen = [DashBoard(), OrderScreen(), OfferScreen(), ProfileScreen()];
 
   @override
   void initState() {
@@ -73,30 +74,13 @@ class _BottomNavigatorState extends State<BottomNavigator>
 
     Future.delayed(
       Duration(seconds: 1),
-          () => _animationController.forward(),
+      () => _animationController.forward(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // globalContext = context;
     return Scaffold(
-      // extendBody: true,
-      // key: _scaffoldKey,
-      // body: Container(
-      //   margin: const EdgeInsets.only(top: 50),
-      //   child: Column(
-      //     children: [
-      //       // CustomAppBarWidget(title, onTap: () => openEndDrawer(_scaffoldKey)),
-      //       Expanded(
-      //         child: Container(
-      //           margin: EdgeInsets.only(left: 16, right: 16),
-      //           // child: _widgetList[bottomNavIndex],
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
       body: screen[bottomNavIndex],
       floatingActionButton: ScaleTransition(
         scale: animation,
@@ -108,13 +92,6 @@ class _BottomNavigatorState extends State<BottomNavigator>
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Color(0xff492F92),
-              //     blurRadius: 15.0,
-              //     spreadRadius: 0.1,
-              //   )
-              // ],
             ),
             child: ImageLoader(
               path: AppAssets.shoppingCart,
@@ -122,16 +99,11 @@ class _BottomNavigatorState extends State<BottomNavigator>
               width: 25,
               dColor: Color(0xff492F92),
             ),
-
           ),
           onPressed: () {},
-          // => PageRouter.gotoWidget(Upload(), context),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // endDrawer: ClipRRect(
-      //   child: DrawerWidget(),
-      // ),
       bottomNavigationBar: CustomAppBar(
         icons: iconList,
         backgroundColor: Color(0xff492F92),
@@ -166,45 +138,6 @@ class _BottomNavigatorState extends State<BottomNavigator>
       if (bottomNavIndex == 3) {
         setState(() => title = "Home");
       }
-      // if (bottomNavIndex == 4) {
-      //   setState(() => title = "Cream Bid");
-      // }
-      // if (bottomNavIndex == 5) {
-      //   setState(() => title = "Wallet");
-      // }
-      // if (bottomNavIndex == 6) {
-      //   setState(() => title = "Upload Content");
-      // }
-      // if (bottomNavIndex == 7) {
-      //   setState(() => title = "Cream Music");
-      // }
-      // if (bottomNavIndex == 8) {
-      //   setState(() => title = "Home");
-      // }
-      // if (bottomNavIndex == 9) {
-      //   setState(() => title = "Music Play");
-      // }
-      // if (bottomNavIndex == 10) {
-      //   setState(() => title = "Cream Video");
-      // }
-      // if (bottomNavIndex == 11) {
-      //   setState(() => title = "Video Play");
-      // }
-      // if (bottomNavIndex == 12) {
-      //   setState(() => title = "Wallet");
-      // }
-      // if (bottomNavIndex == 13) {
-      //   setState(() => title = "Cream Images");
-      // }
-      // if (bottomNavIndex == 14) {
-      //   setState(() => title = "Cream Images");
-      // }
     });
   }
-
-// void _showSheet() {
-//   MusicPlaylistBottomSheet(
-//       context: context, account: (accountNumber, bankName) {})
-//       .show();
-// }
 }
