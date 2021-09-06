@@ -5,6 +5,8 @@ import 'package:sparepart/screens/profile_screen/offer/add_to_cart_provider.dart
 import 'package:sparepart/sign_in/provider.dart';
 import 'package:sparepart/sign_up/provider.dart';
 import 'package:sparepart/screens/profile_screen/verification/provider.dart';
+import 'package:sparepart/dashboard/provider/brand_provider.dart';
+import 'package:sparepart/dashboard/provider/brand_id_provider.dart';
 
 class Providers {
   static List<SingleChildWidget> getProviders = [
@@ -20,5 +22,6 @@ class Providers {
     ChangeNotifierProvider<CategoriesProvider>(
         create: (_) => CategoriesProvider()),
     ChangeNotifierProvider<Count>(create: (_) => Count()),
+    ChangeNotifierProvider<BrandIdProvider>(create: (_) => BrandIdProvider()),
   ];
 }

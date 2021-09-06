@@ -11,6 +11,8 @@ final JayNetworkClient networkClient = JayNetworkClient(
 
 // ignore: non_constant_identifier_names
 final BASE_URL = 'https://admin.gapaautoparts.com/api/';
+// ignore: non_constant_identifier_names
+final BRAND_BASE_URL = 'https://admin.gapaautoparts.com/api/cars?brand_id=';
 final String url = 'https://gapaautoparts.com';
 final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
 

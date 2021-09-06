@@ -11,8 +11,13 @@ import 'package:sparepart/screens/profile_screen/order/order_screen_categories.d
 import 'package:sparepart/screens/profile_screen/order/order_screen_feeatured_product.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
+import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
+import 'package:sparepart/dashboard/provider/brand_provider.dart';
+import 'package:sparepart/dashboard/provider/brand_id_provider.dart';
+import 'package:sparepart/screens/profile_screen/car_brands/car_brand_screen.dart';
+
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key key}) : super(key: key);
@@ -26,8 +31,8 @@ class _DashBoardState extends State<DashBoard> {
   FeaturedProductProvider featuredProductProvider;
   BrandsProvider brandsProvider;
   CategoriesProvider categoriesProvider;
+  BrandIdProvider brandIdProvider;
   TextEditingController controller = TextEditingController();
-  String url = 'https://gapaautoparts.com';
 
   @override
   void initState() {
@@ -45,6 +50,8 @@ class _DashBoardState extends State<DashBoard> {
     categoriesProvider =
         Provider.of<CategoriesProvider>(context, listen: false);
     categoriesProvider.init(context);
+    brandIdProvider = Provider.of<BrandIdProvider>(context,listen:false);
+    brandIdProvider.init(context);
     categoriesProvider.categoriesProvider();
     super.initState();
   }
@@ -487,19 +494,7 @@ class _DashBoardState extends State<DashBoard> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          OnPressedDiscountScreen(
-                                                            descriptionText:
-                                                                productLog
-                                                                        ?.description ??
-                                                                    '',
-                                                            categoryText: '',
-                                                            priceText: '',
-                                                            imageText:
-                                                                productLog
-                                                                    .imgUrl,
-                                                            nameText:
-                                                                productLog.name,
-                                                          ))),
+                                                          CarBrandScreen(id: productLog.id,))),
                                               child: CachedNetworkImage(
                                                 imageUrl:
                                                     '$url${productLog?.imgUrl ?? ''}',

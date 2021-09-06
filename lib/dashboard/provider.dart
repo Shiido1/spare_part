@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sparepart/dashboard/repo.dart';
 import 'package:sparepart/utils/instances.dart';
-
-import 'model/brand_model.dart';
 import 'model/category_model.dart';
 import 'model/model.dart';
 
 TopProductRepo topProductRepo = TopProductRepo();
 FeaturedProductRepo featuredProductRepo = FeaturedProductRepo();
-BrandRepo brandRepo = BrandRepo();
 CategoriesRepo categoriesRepo = CategoriesRepo();
 
 class TopProductProvider extends ChangeNotifier {
@@ -52,24 +49,7 @@ class FeaturedProductProvider extends ChangeNotifier {
     }
   }
 }
-class BrandsProvider extends ChangeNotifier {
-  BuildContext _context;
-  List<Brands> brandsModel;
 
-  void init(BuildContext context) {
-    this._context = context;
-  }
-
-  void brandsProvider() async {
-    try {
-      brandsModel=await brandRepo.brandsRepo();
-      notifyListeners();
-    } catch (e) {
-      showToast(this._context, message: 'Failed.. Please try again');
-      notifyListeners();
-    }
-  }
-}
 class CategoriesProvider extends ChangeNotifier {
   BuildContext _context;
   List<Category> categoriesModel;
