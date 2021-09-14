@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:sparepart/screens/profile_screen/forgot_password/reset_password/reset_password_screen.dart';
 import 'package:sparepart/screens/profile_screen/main_screen.dart';
 import 'package:sparepart/screens/profile_screen/offer/on_pressed_discount_screen.dart';
 import 'package:sparepart/screens/profile_screen/verification/verification_screen.dart';
@@ -9,10 +10,11 @@ BuildContext globalContext;
 bool hasOpenedLogOutDialog = false;
 
 class Routes {
-  static const String DASHBOARD_SCREEN = '/tailorDashboard';
+  static const String DASHBOARD_SCREEN = '/dashboard';
   static const String LOGIN = '/login';
   static const String SIGN_UP = '/signup';
   static const String OTP = '/otp';
+  static const String RESETPASSWORD_SCREEN = '/resetPassword';
   static const String ON_PRESS_DESCRIPTION_SCREEN = '/onPressDescriptionScreen';
 
   static Map<String, Widget Function(BuildContext mainContext)> get getRoutes =>
@@ -36,6 +38,10 @@ class Routes {
         ON_PRESS_DESCRIPTION_SCREEN: (BuildContext context) {
           globalContext = context;
           return OnPressedDiscountScreen();
+        },
+        RESETPASSWORD_SCREEN: (BuildContext context) {
+          globalContext = context;
+          return ResetPassword();
         },
       };
 }

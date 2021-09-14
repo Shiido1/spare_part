@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password.dart';
+import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password/forgot_password.dart';
 import 'package:sparepart/sign_in/model.dart';
 import 'package:sparepart/sign_in/provider.dart';
 import 'package:sparepart/sign_up/sign_up_screen.dart';
@@ -32,7 +32,7 @@ class _SignInScreenState extends State<SignInScreen> {
   void initState() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    signInProvider = Provider.of<SignInProvider>(context, listen:false);
+    signInProvider = Provider.of<SignInProvider>(context, listen: false);
     signInProvider.initialize(context);
     super.initState();
   }
@@ -44,14 +44,13 @@ class _SignInScreenState extends State<SignInScreen> {
     super.dispose();
   }
 
-  bool _validateInput(){
-    if (emailController.text.isEmpty ||
-        !validateEmail(emailController.text)) {
+  bool _validateInput() {
+    if (emailController.text.isEmpty || !validateEmail(emailController.text)) {
       setState(() => _isEmail = true);
       return false;
     }
 
-    if (passwordController.text.isEmpty||
+    if (passwordController.text.isEmpty ||
         !isPasswordCompliant(passwordController.text)) {
       setState(() => _isPassword = true);
       return false;
@@ -66,7 +65,8 @@ class _SignInScreenState extends State<SignInScreen> {
       signInProvider.loginUser(
           map: SignInModel.toSignInJson(
               email: emailController.text.trim(),
-              password: passwordController.text.trim()), context: context);
+              password: passwordController.text.trim()),
+          context: context);
   }
 
   @override
@@ -79,15 +79,15 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 height: 150,
                 decoration: new BoxDecoration(
                   color: Colors.white,
                   image: new DecorationImage(
                     fit: BoxFit.cover,
-                    // colorFilter: new ColorFilter.mode(
-                    //     AppColor.black.withOpacity(1), BlendMode.dstATop),
                     image: new AssetImage(
                       AppAssets.gapa_logo,
                     ),
@@ -98,14 +98,20 @@ class _SignInScreenState extends State<SignInScreen> {
                 text: 'Welcome!',
                 color: AppColor.black,
                 textSize: 26,
-                fontWeight: FontWeight.w500,),
-              SizedBox(height: 25,),
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(
+                height: 25,
+              ),
               TextViewWidget(
                 text: 'Login to your existing account',
                 color: AppColor.black,
                 textSize: 18,
-                fontWeight: FontWeight.w400,),
-              SizedBox(height: 25,),
+                fontWeight: FontWeight.w400,
+              ),
+              SizedBox(
+                height: 25,
+              ),
               EditTextWidget(
                 err: 'please enter email',
                 textInputType: TextInputType.text,
@@ -114,8 +120,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 hintFontSize: 20,
                 label: 'please enter your email',
                 isValidationError: _isEmail,
-                textCallBack: (_) => setState(() => _isEmail = false),),
-              SizedBox(height: 25,),
+                textCallBack: (_) => setState(() => _isEmail = false),
+              ),
+              SizedBox(
+                height: 25,
+              ),
               EditTextWidget(
                 err: 'please enter password',
                 obsecure: true,
@@ -125,8 +134,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 hint: 'Password',
                 label: 'please enter your password',
                 isValidationError: _isPassword,
-                textCallBack: (_) => setState(() => _isPassword = false),),
-              SizedBox(height: 45,),
+                textCallBack: (_) => setState(() => _isPassword = false),
+              ),
+              SizedBox(
+                height: 45,
+              ),
               Align(
                 alignment: Alignment.centerRight,
                 child: InkWell(
@@ -140,37 +152,46 @@ class _SignInScreenState extends State<SignInScreen> {
                     text: 'Forgot Password',
                     color: AppColor.black,
                     textSize: 19,
-                      ),
+                  ),
                 ),
               ),
               CheckboxListTile(
                 title: TextViewWidget(
-                  text: 'Remember me',textSize: 19,color: AppColor.black,),
+                  text: 'Remember me',
+                  textSize: 19,
+                  color: AppColor.black,
+                ),
                 value: checkedValue,
                 onChanged: (newValue) {
                   setState(() {
                     checkedValue = newValue;
                   });
                 },
-                controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                controlAffinity:
+                    ListTileControlAffinity.leading, //  <-- leading Checkbox
               ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(left:25,right: 25,top: 30),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
                   child: TextButton(
-                    onPressed: ()=>signIn(),
+                    onPressed: () => signIn(),
                     child: TextViewWidget(
                       text: 'Login',
                       textSize: 23,
-                      color: AppColor.purple,),
+                      color: AppColor.purple,
+                    ),
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 70.0, vertical: 10.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 70.0, vertical: 10.0),
                       primary: AppColor.yellow,
                       shape: StadiumBorder(),
-                    ),),
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               Center(
                 child: Text.rich(
                   TextSpan(
@@ -182,10 +203,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     children: <TextSpan>[
                       TextSpan(
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () =>
-                              Navigator.push(
+                          ..onTap = () => Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpScreen()),
+                                MaterialPageRoute(
+                                    builder: (context) => SignUpScreen()),
                               ),
                         text: 'Sign up',
                         style: TextStyle(
@@ -197,7 +218,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
               ),
-              // Checkbox(value: value, onChanged: onChanged)
             ],
           ),
         ),

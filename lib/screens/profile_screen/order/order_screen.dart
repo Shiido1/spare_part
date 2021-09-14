@@ -133,7 +133,6 @@ class _OrderScreenState extends State<OrderScreen> {
             itemBuilder: (BuildContext context, int index) {
               var productLog = provider1.productModel[index];
               return Container(
-                height: 120,
                 color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

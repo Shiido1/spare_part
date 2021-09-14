@@ -12,17 +12,25 @@ import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
-
 class CartScreen extends StatefulWidget {
-  CartScreen({Key key,}) : super(key: key);
+  CartScreen({
+    Key key,
+  }) : super(key: key);
 
   @override
   _CartScreenState createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-  
-  var priceTotal=0.0;
+  var priceTotal = 0.0;
+  Count countProvider;
+
+  @override
+  void initState() {
+    countProvider = Provider.of<Count>(context, listen: false);
+    countProvider.init(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +79,8 @@ class _CartScreenState extends State<CartScreen> {
           ValueListenableBuilder(
             valueListenable: Hive.box<ProductModel>(productName).listenable(),
             builder: (BuildContext context, Box<ProductModel> box, _) {
-              if (box.values.isEmpty)
+              if (box.values.isEmpty) {
+                box.clear();
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20),
@@ -81,6 +90,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 );
+              }
               return Consumer<Count>(builder: (_, provider, __) {
                 return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
@@ -88,11 +98,11 @@ class _CartScreenState extends State<CartScreen> {
                   itemCount: box.values.length,
                   itemBuilder: (context, index) {
                     ProductModel item = box.get(index);
-                    priceTotal+=item.price;
+                    priceTotal += item?.price ?? 0.0;
                     return Dismissible(
                       direction: DismissDirection.endToStart,
                       background: Container(
-                        color: Colors.red,
+                        color: AppColor.red,
                       ),
                       onDismissed: (direction) {
                         provider.deleteCard(index);
@@ -144,8 +154,9 @@ class _CartScreenState extends State<CartScreen> {
                                     children: [
                                       IconButton(
                                         icon: Icon(Icons.add),
-                                        onPressed: ()=> 
-                                            provider.incrementCount(),
+                                        onPressed: () =>
+                                            provider.incrementCount(
+                                                totalPrice: priceTotal),
                                         color: AppColor.black,
                                       ),
                                       SizedBox(
@@ -166,8 +177,9 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                       IconButton(
                                         icon: Icon(Icons.minimize_sharp),
-                                        onPressed: ()=>
-                                        provider.decrementCount(),
+                                        onPressed: () =>
+                                            provider.decrementCount(
+                                                totalPrice: priceTotal),
                                         color: AppColor.black,
                                       )
                                     ],
@@ -200,7 +212,7 @@ class _CartScreenState extends State<CartScreen> {
               children: [
                 Consumer<Count>(builder: (_, provider, __) {
                   return TextViewWidget(
-                    text: 'Total: \u20A6$priceTotal',
+                    text: 'Total: \u20A6${provider.total}',
                     color: AppColor.black,
                     textSize: 20,
                     fontWeight: FontWeight.bold,

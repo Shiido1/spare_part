@@ -11,19 +11,18 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class CarBrandScreen extends StatefulWidget {
   String id;
-  CarBrandScreen({Key key,@required this.id}) : super(key: key);
+  CarBrandScreen({Key key, @required this.id}) : super(key: key);
 
   @override
   _CarBrandScreenState createState() => _CarBrandScreenState();
 }
 
 class _CarBrandScreenState extends State<CarBrandScreen> {
-
   BrandIdProvider brandIdProvider;
 
   @override
   void initState() {
-    brandIdProvider = Provider.of<BrandIdProvider>(context,listen:false);
+    brandIdProvider = Provider.of<BrandIdProvider>(context, listen: false);
     brandIdProvider.init(context);
     brandIdProvider.brandsProvider(id: widget.id);
     super.initState();
@@ -46,41 +45,54 @@ class _CarBrandScreenState extends State<CarBrandScreen> {
         padding: EdgeInsets.all(22),
         child: Container(
           child: Consumer<BrandIdProvider>(
-            builder: (_,provider,__){
+            builder: (_, provider, __) {
               if (provider.carsModel == null) {
                 return Center(
                     child: SpinKitCircle(
-                      color: AppColor.purple,
-                      size: 50,
-                    ));
+                  color: AppColor.purple,
+                  size: 50,
+                ));
               } else {
-                return ListView.separated(
+                return ListView.builder(
                   itemCount: provider.carsModel.length,
-                  itemBuilder: (context,index){
+                  itemBuilder: (context, index) {
                     var model = provider.carsModel[index];
                     return Column(
                       children: [
-                        Container(
-                          height: 300,
-                          width: MediaQuery.of(context).size.width,
-                          child: CachedNetworkImage(
-                            imageUrl: '$url${model?.imgUrl??''}',
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                          color: AppColor.editTextBackground.withOpacity(1),
+                          child: Container(
+                            height: 270,
+                            width: MediaQuery.of(context).size.width,
+                            child: CachedNetworkImage(
+                              height: 100,
+                              imageUrl: '$url${model?.imgUrl ?? ''}',
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                           ),
                         ),
                         TextViewWidget(
-                            text: '${model.name}',
-                            color: AppColor.black,
-                            fontWeight: FontWeight.w700,
-                            textSize: 21,)
+                          text: '${model.name}',
+                          color: AppColor.black,
+                          fontWeight: FontWeight.w700,
+                          textSize: 21,
+                        )
                       ],
                     );
-                  }, separatorBuilder: (BuildContext context, int index) {
-                  return Divider(thickness: 1,color: AppColor.black,);
-                },);
+                  },
+                  // separatorBuilder: (BuildContext context, int index) {
+                  //   return Divider(
+                  //     thickness: 1,
+                  //     color: AppColor.black,
+                  //   );
+                  // },
+                );
               }
             },
           ),

@@ -1,6 +1,8 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:sparepart/dashboard/provider.dart';
+import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password/provider.dart';
+import 'package:sparepart/screens/profile_screen/forgot_password/reset_password/provider.dart';
 import 'package:sparepart/screens/profile_screen/offer/add_to_cart_provider.dart';
 import 'package:sparepart/sign_in/provider.dart';
 import 'package:sparepart/sign_up/provider.dart';
@@ -23,5 +25,9 @@ class Providers {
         create: (_) => CategoriesProvider()),
     ChangeNotifierProvider<Count>(create: (_) => Count()),
     ChangeNotifierProvider<BrandIdProvider>(create: (_) => BrandIdProvider()),
+    ChangeNotifierProvider<ForgotPasswordProvider>(
+        create: (_) => ForgotPasswordProvider()),
+    ChangeNotifierProvider<ResetPasswordProvider>(
+        create: (_) => ResetPasswordProvider()),
   ];
 }

@@ -17,7 +17,7 @@ import 'package:sparepart/widgets/textform_widget.dart';
 import 'package:sparepart/dashboard/provider/brand_provider.dart';
 import 'package:sparepart/dashboard/provider/brand_id_provider.dart';
 import 'package:sparepart/screens/profile_screen/car_brands/car_brand_screen.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key key}) : super(key: key);
@@ -50,7 +50,7 @@ class _DashBoardState extends State<DashBoard> {
     categoriesProvider =
         Provider.of<CategoriesProvider>(context, listen: false);
     categoriesProvider.init(context);
-    brandIdProvider = Provider.of<BrandIdProvider>(context,listen:false);
+    brandIdProvider = Provider.of<BrandIdProvider>(context, listen: false);
     brandIdProvider.init(context);
     categoriesProvider.categoriesProvider();
     super.initState();
@@ -70,7 +70,6 @@ class _DashBoardState extends State<DashBoard> {
                 decoration: BoxDecoration(
                   color: AppColor.purple,
                 ),
-                // stack and add image profile and position it
                 child: Column(
                   children: [
                     Expanded(
@@ -167,10 +166,15 @@ class _DashBoardState extends State<DashBoard> {
                                 textSize: 18,
                               ),
                               Spacer(),
-                              TextViewWidget(
-                                text: 'See all',
-                                color: AppColor.purple,
-                                textSize: 14,
+                              Text(
+                                'See all',
+                                style: GoogleFonts.abel(
+                                  textStyle: TextStyle(
+                                      color: AppColor.purple,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: .0),
+                                ),
                               )
                             ],
                           ),
@@ -197,8 +201,6 @@ class _DashBoardState extends State<DashBoard> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(
                                             color: AppColor.purple,
-                                            // height: 152,
-                                            // width: 115,
                                             child: InkWell(
                                               onTap: () => Navigator.push(
                                                   context,
@@ -220,16 +222,19 @@ class _DashBoardState extends State<DashBoard> {
                                                             nameText:
                                                                 productLog.name,
                                                           ))),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    '$url${productLog?.imgUrl ?? ''}',
-                                                placeholder: (context, url) =>
-                                                    CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                                // maxHeightDiskCache: 115,
-                                                // maxWidthDiskCache: 110,
+                                              child: Card(
+                                                elevation: 3,
+                                                shadowColor:
+                                                    AppColor.editTextBackground,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      '$url${productLog?.imgUrl ?? ''}',
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -239,30 +244,33 @@ class _DashBoardState extends State<DashBoard> {
                                         height: 14,
                                       ),
                                       InkWell(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    OnPressedDiscountScreen(
-                                                      imageText:
-                                                          productLog.imgUrl,
-                                                      priceText: productLog
-                                                          .price
-                                                          .toString(),
-                                                      descriptionText:
-                                                          productLog
-                                                              .description,
-                                                      categoryText:
-                                                          productLog.category,
-                                                      nameText: productLog.name,
-                                                    ))),
-                                        child: TextViewWidget(
-                                          text: productLog?.name ?? '',
-                                          color: AppColor.black,
-                                          textSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      )
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      OnPressedDiscountScreen(
+                                                        imageText:
+                                                            productLog.imgUrl,
+                                                        priceText: productLog
+                                                            .price
+                                                            .toString(),
+                                                        descriptionText:
+                                                            productLog
+                                                                .description,
+                                                        categoryText:
+                                                            productLog.category,
+                                                        nameText:
+                                                            productLog.name,
+                                                      ))),
+                                          child: Text(
+                                            productLog?.name ?? '',
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.andika(
+                                              textStyle: TextStyle(
+                                                  color: AppColor.black,
+                                                  letterSpacing: .0),
+                                            ),
+                                          ))
                                     ],
                                   ),
                                 ],
@@ -316,10 +324,15 @@ class _DashBoardState extends State<DashBoard> {
                                 textSize: 18,
                               ),
                               Spacer(),
-                              TextViewWidget(
-                                text: 'See all',
-                                color: AppColor.purple,
-                                textSize: 14,
+                              Text(
+                                'See all',
+                                style: GoogleFonts.abel(
+                                  textStyle: TextStyle(
+                                      color: AppColor.purple,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: .0),
+                                ),
                               )
                             ],
                           ),
@@ -368,16 +381,19 @@ class _DashBoardState extends State<DashBoard> {
                                                             nameText:
                                                                 productLog.name,
                                                           ))),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    '$url${productLog?.imgUrl ?? ''}',
-                                                placeholder: (context, url) =>
-                                                    CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                                // maxHeightDiskCache: 115,
-                                                // maxWidthDiskCache: 110,
+                                              child: Card(
+                                                elevation: 3,
+                                                shadowColor:
+                                                    AppColor.editTextBackground,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      '$url${productLog?.imgUrl ?? ''}',
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -404,11 +420,13 @@ class _DashBoardState extends State<DashBoard> {
                                                           productLog.category,
                                                       nameText: productLog.name,
                                                     ))),
-                                        child: TextViewWidget(
-                                          text: productLog?.name ?? '',
-                                          color: AppColor.black,
-                                          textSize: 14,
-                                          fontWeight: FontWeight.w500,
+                                        child: Text(
+                                          productLog?.name ?? '',
+                                          style: GoogleFonts.andika(
+                                            textStyle: TextStyle(
+                                                color: AppColor.black,
+                                                letterSpacing: .0),
+                                          ),
                                         ),
                                       )
                                     ],
@@ -459,10 +477,15 @@ class _DashBoardState extends State<DashBoard> {
                                 textSize: 18,
                               ),
                               Spacer(),
-                              TextViewWidget(
-                                text: 'See all',
-                                color: AppColor.purple,
-                                textSize: 14,
+                              Text(
+                                'See all',
+                                style: GoogleFonts.abel(
+                                  textStyle: TextStyle(
+                                      color: AppColor.purple,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: .0),
+                                ),
                               )
                             ],
                           ),
@@ -494,17 +517,22 @@ class _DashBoardState extends State<DashBoard> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          CarBrandScreen(id: productLog.id,))),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    '$url${productLog?.imgUrl ?? ''}',
-                                                placeholder: (context, url) =>
-                                                    CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                                // maxHeightDiskCache: 115,
-                                                // maxWidthDiskCache: 110,
+                                                          CarBrandScreen(
+                                                            id: productLog.id,
+                                                          ))),
+                                              child: Card(
+                                                elevation: 3,
+                                                shadowColor:
+                                                    AppColor.editTextBackground,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      '$url${productLog?.imgUrl ?? ''}',
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -528,11 +556,13 @@ class _DashBoardState extends State<DashBoard> {
                                                           productLog.imgUrl,
                                                       nameText: productLog.name,
                                                     ))),
-                                        child: TextViewWidget(
-                                          text: productLog?.name ?? '',
-                                          color: AppColor.black,
-                                          textSize: 14,
-                                          fontWeight: FontWeight.w500,
+                                        child: Text(
+                                          productLog?.name ?? '',
+                                          style: GoogleFonts.andika(
+                                            textStyle: TextStyle(
+                                                color: AppColor.black,
+                                                letterSpacing: .0),
+                                          ),
                                         ),
                                       )
                                     ],
@@ -583,10 +613,15 @@ class _DashBoardState extends State<DashBoard> {
                                 textSize: 18,
                               ),
                               Spacer(),
-                              TextViewWidget(
-                                text: 'See all',
-                                color: AppColor.purple,
-                                textSize: 14,
+                              Text(
+                                'See all',
+                                style: GoogleFonts.abel(
+                                  textStyle: TextStyle(
+                                      color: AppColor.purple,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: .0),
+                                ),
                               )
                             ],
                           ),
@@ -628,16 +663,19 @@ class _DashBoardState extends State<DashBoard> {
                                                             nameText: productLog
                                                                 .title,
                                                           ))),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    '$url${productLog?.imgUrl ?? ''}',
-                                                placeholder: (context, url) =>
-                                                    CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                                // maxHeightDiskCache: 115,
-                                                // maxWidthDiskCache: 110,
+                                              child: Card(
+                                                elevation: 3,
+                                                shadowColor:
+                                                    AppColor.editTextBackground,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      '$url${productLog?.imgUrl ?? ''}',
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -660,11 +698,13 @@ class _DashBoardState extends State<DashBoard> {
                                                       categoryText: '',
                                                       priceText: '',
                                                     ))),
-                                        child: TextViewWidget(
-                                          text: productLog?.title ?? '',
-                                          color: AppColor.black,
-                                          textSize: 14,
-                                          fontWeight: FontWeight.w500,
+                                        child: Text(
+                                          productLog?.title ?? '',
+                                          style: GoogleFonts.andika(
+                                            textStyle: TextStyle(
+                                                color: AppColor.black,
+                                                letterSpacing: .0),
+                                          ),
                                         ),
                                       )
                                     ],
