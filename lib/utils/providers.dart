@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:sparepart/dashboard/provider.dart';
+import 'package:sparepart/screens/product_screen/product_provider.dart';
 import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password/provider.dart';
 import 'package:sparepart/screens/profile_screen/forgot_password/reset_password/provider.dart';
 import 'package:sparepart/screens/profile_screen/offer/add_to_cart_provider.dart';
@@ -29,5 +30,7 @@ class Providers {
         create: (_) => ForgotPasswordProvider()),
     ChangeNotifierProvider<ResetPasswordProvider>(
         create: (_) => ResetPasswordProvider()),
+    ChangeNotifierProvider<ProductProvider>(
+        create: (_) => ProductProvider()),
   ];
 }

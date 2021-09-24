@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
+import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
 
@@ -18,6 +20,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   TextEditingController countryController = TextEditingController();
+
+
+  String firstName='',lastName='',image='';
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  init()async{
+    firstName = await preferencesHelper.getStringValues(key: 'first_name');
+    lastName = await preferencesHelper.getStringValues(key: 'last_name');
+    image = await preferencesHelper.getStringValues(key: 'profile_image');
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +47,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/4,
+                height: MediaQuery.of(context).size.height/5,
                 decoration: BoxDecoration(
                   color: AppColor.purple,
                 ),
@@ -49,11 +68,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         fontWeight: FontWeight.w500,
                         textSize: 24,),
                       SizedBox(
-                        height: 90,
-                        width: 70,
+                        height: 50,
+                        width: 50,
                         child: ClipOval(
-                          child: Image(
-                            image: AssetImage(AppAssets.pic2),
+                          child: CachedNetworkImage(
+                            imageUrl:image ?? '',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget:
+                                (context, url, error) =>
+                                Icon(Icons.error),
                           ),
 
                         ),
@@ -73,14 +97,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(height: 15,),
-                            ClipOval(
-                              child: Image(
-                                image: AssetImage(AppAssets.pic2),
+                            SizedBox(
+                              height: 250,
+                              width: 250,
+                              child: ClipOval(
+                                // child: Image(
+                                //   image: AssetImage(AppAssets.pic),
+                                // ),
+
+                                child: CachedNetworkImage(
+                                  imageUrl:image ?? '',
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget:
+                                      (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
                               ),
                             ),
                             SizedBox(height: 10,),
                             TextViewWidget(
-                              text: "Princess Davidine",
+                              text: "$firstName $lastName",
                               color: AppColor.black,
                               textSize: 28,),
                             SizedBox(height: 10,),
@@ -142,32 +179,4 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
-
-  // Widget textCard({String text,String icon})=> Card(
-  //   child: Container(
-  //     height: 50,
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.all(Radius.circular(20)),
-  //       // boxShadow: <BoxShadow>[
-  //       //   BoxShadow(
-  //       //       color: Colors.black54,
-  //       //       blurRadius: 15.0,
-  //       //       offset: Offset(0.0, 0.75)
-  //       //   )
-  //       // ],
-  //     ),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.start,
-  //       children: [
-  //         SizedBox(width: 20,),
-  //         SvgPicture.asset(icon),
-  //         SizedBox(width: 35,),
-  //         TextViewWidget(
-  //           text: '$text',
-  //           color: AppColor.black,textSize: 20,)
-  //       ],
-  //     ),
-  //   ),
-  // );
-
 }

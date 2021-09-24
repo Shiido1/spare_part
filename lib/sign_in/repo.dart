@@ -5,20 +5,25 @@ import 'package:sparepart/utils/instances.dart';
 import 'model.dart';
 
 class LoginApiRepository {
-  Future<dynamic> loginUser({@required BuildContext context,@required Map map}) async {
+  Future<dynamic> loginUser(
+      {@required BuildContext context, @required Map map}) async {
     try {
-
-      final _response =
-      await networkClient.makePostRequest('login', data: map);
+      final _response = await networkClient.makePostRequest('login', data: map);
       final _finalData = SignInModel.fromJson(_response.data);
       print('printing first name ${_finalData.userData.firstName}');
-      preferencesHelper.saveValue(key: 'first_name', value: _finalData.userData.firstName);
-      preferencesHelper.saveValue(key: 'last_name', value: _finalData.userData.lastName);
-      preferencesHelper.saveValue(key: 'email', value: _finalData.userData.email);
+      preferencesHelper.saveValue(
+          key: 'first_name', value: _finalData.userData.firstName);
+      preferencesHelper.saveValue(
+          key: 'last_name', value: _finalData.userData.lastName);
+      preferencesHelper.saveValue(
+          key: 'email', value: _finalData.userData.email);
       preferencesHelper.saveValue(key: 'id', value: _finalData.userData.id);
-      preferencesHelper.saveValue(key: 'profile_image', value: _finalData.userData.profileImage);
-      preferencesHelper.saveValue(key: 'address', value: _finalData.userData.address);
-      preferencesHelper.saveValue(key: 'phone', value: _finalData.userData.phoneNumber);
+      preferencesHelper.saveValue(
+          key: 'profile_image', value: _finalData.userData.profileImage);
+      preferencesHelper.saveValue(
+          key: 'address', value: _finalData.userData.address);
+      preferencesHelper.saveValue(
+          key: 'phone', value: _finalData.userData.phoneNumber);
       return ApiResponse.success(
           statusMessage: _response.statusMessage,
           data: _finalData,

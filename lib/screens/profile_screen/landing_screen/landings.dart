@@ -39,7 +39,10 @@ class _LandingState extends State<Landing> {
 
         child: Stack(
           children: [
-            SvgPicture.asset(widget.svgImageAsset),
+            Positioned(
+                top:0,
+                child:
+                SvgPicture.asset(widget.svgImageAsset)),
             Padding(
               padding: const EdgeInsets.only(top:130,left: 40),
               child: Image(image: AssetImage(widget.image2),),

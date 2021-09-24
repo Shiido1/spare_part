@@ -86,12 +86,6 @@ class _CarBrandScreenState extends State<CarBrandScreen> {
                       ],
                     );
                   },
-                  // separatorBuilder: (BuildContext context, int index) {
-                  //   return Divider(
-                  //     thickness: 1,
-                  //     color: AppColor.black,
-                  //   );
-                  // },
                 );
               }
             },

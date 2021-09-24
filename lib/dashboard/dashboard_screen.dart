@@ -33,9 +33,11 @@ class _DashBoardState extends State<DashBoard> {
   CategoriesProvider categoriesProvider;
   BrandIdProvider brandIdProvider;
   TextEditingController controller = TextEditingController();
+  String image = '';
 
   @override
   void initState() {
+    init();
     topProductProvider =
         Provider.of<TopProductProvider>(context, listen: false);
     topProductProvider.init(context);
@@ -54,6 +56,11 @@ class _DashBoardState extends State<DashBoard> {
     brandIdProvider.init(context);
     categoriesProvider.categoriesProvider();
     super.initState();
+  }
+
+  init() async {
+    image = await preferencesHelper.getStringValues(key: 'profile_image');
+    setState(() {});
   }
 
   @override
@@ -79,17 +86,41 @@ class _DashBoardState extends State<DashBoard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image(
-                              image: AssetImage(AppAssets.yellowLogo),
-                              height: 150,
-                              width: 200,
+                            Stack(
+                              children: [
+                                Positioned(
+                                  bottom:95,
+                                  child: Text(
+                                    'Welcome',
+                                    style: GoogleFonts.abrilFatface(
+                                      textStyle: TextStyle(
+                                          color: AppColor.yellow,
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.w400,
+                                          letterSpacing: .0),
+                                    ),
+                                  ),
+                                ),
+                                Image(
+                                  image: AssetImage(AppAssets.yellowLogo),
+                                  height: 150,
+                                  width: 200,
+                                ),
+                              ],
                             ),
-                            ClipOval(
-                              child: Image(
-                                image: AssetImage(AppAssets.pic),
-                                height: 90,
-                                width: 90,
-                              ),
+                            SizedBox(
+                              height: 65,
+                              width: 60,
+                              child: image.isNotEmpty?ClipOval(
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  imageUrl: image,
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+                              ):Container()
                             ),
                           ],
                         ),
@@ -207,12 +238,13 @@ class _DashBoardState extends State<DashBoard> {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           OnPressedDiscountScreen(
+                                                            id: productLog.id,
                                                             imageText:
                                                                 productLog
                                                                     .imgUrl,
                                                             priceText:
-                                                                productLog.price
-                                                                    .toString(),
+                                                                productLog
+                                                                    .price,
                                                             descriptionText:
                                                                 productLog
                                                                     .description,
@@ -221,6 +253,12 @@ class _DashBoardState extends State<DashBoard> {
                                                                     .category,
                                                             nameText:
                                                                 productLog.name,
+                                                            discount: productLog
+                                                                .discount,
+                                                            year:
+                                                                productLog.year,
+                                                            weight: productLog
+                                                                .weightInKg,
                                                           ))),
                                               child: Card(
                                                 elevation: 3,
@@ -251,9 +289,8 @@ class _DashBoardState extends State<DashBoard> {
                                                       OnPressedDiscountScreen(
                                                         imageText:
                                                             productLog.imgUrl,
-                                                        priceText: productLog
-                                                            .price
-                                                            .toString(),
+                                                        priceText:
+                                                            productLog.price,
                                                         descriptionText:
                                                             productLog
                                                                 .description,
@@ -267,8 +304,8 @@ class _DashBoardState extends State<DashBoard> {
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.andika(
                                               textStyle: TextStyle(
-                                                  color: AppColor.black,
-                                                  letterSpacing: .0),
+                                                color: AppColor.black,
+                                              ),
                                             ),
                                           ))
                                     ],
@@ -366,12 +403,13 @@ class _DashBoardState extends State<DashBoard> {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           OnPressedDiscountScreen(
+                                                            id: productLog.id,
                                                             imageText:
                                                                 productLog
                                                                     .imgUrl,
                                                             priceText:
-                                                                productLog.price
-                                                                    .toString(),
+                                                                productLog
+                                                                    .price,
                                                             descriptionText:
                                                                 productLog
                                                                     .description,
@@ -380,6 +418,12 @@ class _DashBoardState extends State<DashBoard> {
                                                                     .category,
                                                             nameText:
                                                                 productLog.name,
+                                                            discount: productLog
+                                                                .discount,
+                                                            weight: productLog
+                                                                .weightInKg,
+                                                            year:
+                                                                productLog.year,
                                                           ))),
                                               child: Card(
                                                 elevation: 3,
@@ -410,15 +454,17 @@ class _DashBoardState extends State<DashBoard> {
                                                     OnPressedDiscountScreen(
                                                       imageText:
                                                           productLog.imgUrl,
-                                                      priceText: productLog
-                                                          .price
-                                                          .toString(),
+                                                      priceText:
+                                                          productLog.price,
                                                       descriptionText:
                                                           productLog
                                                               .description,
                                                       categoryText:
                                                           productLog.category,
                                                       nameText: productLog.name,
+                                                      weight:
+                                                          productLog.weightInKg,
+                                                      year: productLog.year,
                                                     ))),
                                         child: Text(
                                           productLog?.name ?? '',
@@ -541,28 +587,12 @@ class _DashBoardState extends State<DashBoard> {
                                       SizedBox(
                                         height: 14,
                                       ),
-                                      InkWell(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    OnPressedDiscountScreen(
-                                                      descriptionText: productLog
-                                                              ?.description ??
-                                                          '',
-                                                      categoryText: '',
-                                                      priceText: '',
-                                                      imageText:
-                                                          productLog.imgUrl,
-                                                      nameText: productLog.name,
-                                                    ))),
-                                        child: Text(
-                                          productLog?.name ?? '',
-                                          style: GoogleFonts.andika(
-                                            textStyle: TextStyle(
-                                                color: AppColor.black,
-                                                letterSpacing: .0),
-                                          ),
+                                      Text(
+                                        productLog?.name ?? '',
+                                        style: GoogleFonts.andika(
+                                          textStyle: TextStyle(
+                                              color: AppColor.black,
+                                              letterSpacing: .0),
                                         ),
                                       )
                                     ],
@@ -657,11 +687,12 @@ class _DashBoardState extends State<DashBoard> {
                                                             imageText:
                                                                 productLog
                                                                     .imgUrl,
-                                                            priceText: '',
+                                                            priceText: 0,
                                                             descriptionText: '',
                                                             categoryText: '',
                                                             nameText: productLog
                                                                 .title,
+                                                            discount: 0,
                                                           ))),
                                               child: Card(
                                                 elevation: 3,
@@ -690,14 +721,15 @@ class _DashBoardState extends State<DashBoard> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     OnPressedDiscountScreen(
-                                                      imageText:
-                                                          productLog.imgUrl,
-                                                      nameText:
-                                                          productLog.title,
-                                                      descriptionText: '',
-                                                      categoryText: '',
-                                                      priceText: '',
-                                                    ))),
+                                                        imageText:
+                                                            productLog.imgUrl,
+                                                        nameText:
+                                                            productLog.title,
+                                                        descriptionText: '',
+                                                        categoryText: '',
+                                                        priceText: 0,
+                                                        weight: '',
+                                                        year: ''))),
                                         child: Text(
                                           productLog?.title ?? '',
                                           style: GoogleFonts.andika(

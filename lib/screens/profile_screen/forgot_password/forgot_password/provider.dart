@@ -1,19 +1,17 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:jaynetwork/network/network_exceptions.dart';
-import 'package:sparepart/sign_in/model.dart';
-import 'package:sparepart/sign_in/repo.dart';
+import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password/repo.dart';
 import 'package:sparepart/utils/custom_loader/custom_loader_indicator.dart';
 import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/utils/page_route/navigator.dart';
 import 'package:sparepart/utils/page_route/route.dart';
 
-LoginApiRepository _loginRepository = LoginApiRepository();
+ForgotPasswordRepository _forgotPasswordRepository = ForgotPasswordRepository();
 
-class SignInProvider extends ChangeNotifier {
+class ForgotPasswordProvider extends ChangeNotifier {
   BuildContext _context;
   CustomLoader loader;
-  String errorMsg = 'Login Failed,try again';
-  SignInModel model;
+  String errorMsg = 'Try again';
   bool showLoader = false;
 
   void initialize(BuildContext context) {
@@ -21,23 +19,21 @@ class SignInProvider extends ChangeNotifier {
     this._context = context;
   }
 
-  void loginUser({@required BuildContext context, @required Map map}) async {
-
+  void forgotPassword({@required String email}) async {
     try {
-      loader.showLoader();
+      // loader.showLoader();
+      showLoader = true;
       final _response =
-          await _loginRepository.loginUser(context: context, map: map);
-      await loader.hideLoader();
+          await _forgotPasswordRepository.forgotPassword(email: email);
       _response.when(success: (success, _, statusMessage) async {
-
-        showToast(this._context, message: 'Login Successful.');
-        PageRouter.gotoNamed(Routes.DASHBOARD_SCREEN, _context);
+        // showToast(this._context, message: 'reset password');
+        PageRouter.gotoNamed(Routes.RESETPASSWORD_SCREEN, _context);
         notifyListeners();
       }, failure: (NetworkExceptions error, _, statusMessage) async {
-        // await loader.hideLoader();
         if (error.toString() == 'NetworkExceptions.noInternetConnection()') {
           errorMsg = 'check internet connection and try again';
-          // loader.hideLoader();
+          // await loader.hideLoader();
+          showLoader = false;
           showToast(this._context, message: errorMsg);
           notifyListeners();
         } else if (error.toString() ==
@@ -48,11 +44,13 @@ class SignInProvider extends ChangeNotifier {
         }
         showToast(this._context,
             message: NetworkExceptions.getErrorMessage(error));
-        // loader.hideLoader();
+        // await loader.hideLoader();
+        showLoader = false;
         notifyListeners();
       });
     } catch (e) {
-      await loader.hideLoader();
+      // loader.hideLoader();
+      showLoader = false;
       showToast(_context, message: e.toString());
       notifyListeners();
     }

@@ -112,65 +112,43 @@ class _OrderScreenBrandsState extends State<OrderScreenBrands> {
   Widget orderItemContainer()=>Consumer<BrandsProvider>(builder: (
       BuildContext context,
       provider1, Widget child) {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemCount: provider1.brandsModel.length,
       itemBuilder: (BuildContext context, int index) {
         var productLog = provider1.brandsModel[index];
-        return Container(
-          height: 120,
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: CachedNetworkImage(
-                      imageUrl: '$url${productLog.imgUrl}',
-                      placeholder: (context, url) => CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  ),
-                  SizedBox(width: 15,),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left:8.0,right: 15),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextViewWidget(
-                            text: '${productLog.name}',
-                            color: AppColor.black,
-                            textSize: 18,
-                            fontWeight: FontWeight.bold,),
-                          SizedBox(height: 10,),
-                          TextViewWidget(
-                              text: '',
-                              fontWeight: FontWeight.bold,
-                              textSize: 16,
-                              color: AppColor.purple),
-                          SizedBox(height: 10,),
-
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 15,),
-                  TextViewWidget(
-                      text: '${productLog.createdAt.substring(0,10)}',
-                      color: AppColor.black)
-                ],
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 100,
+              height: 100,
+              child: Card(
+                elevation: 2,
+                shadowColor:
+                AppColor.grey,
+                child: CachedNetworkImage(
+                  imageUrl: '$url${productLog.imgUrl}',
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
-              Expanded(child: Divider(thickness: 0.7, color: Colors.black26,))
-            ],
-          ),
+            ),
+            SizedBox(width: 20,),
+            TextViewWidget(
+              text: '${productLog.name}',
+              color: AppColor.black,
+              textSize: 18,
+              fontWeight: FontWeight.bold,),
+            Expanded(child: SizedBox(width: 20,)),
+            TextViewWidget(
+                text: '${productLog.createdAt.substring(0,10)}',
+                color: AppColor.black)
+          ],
         );
-      },);
+      }, separatorBuilder: (BuildContext context, int index) {
+          return Divider(thickness: 0.7, color: Colors.black26,);
+    },);
   },);
 }
