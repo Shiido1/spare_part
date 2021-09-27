@@ -197,7 +197,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: Container(
-                          height: 200,
+                          height: 250,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
