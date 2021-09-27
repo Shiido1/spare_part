@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sparepart/dashboard/provider.dart';
+import 'package:sparepart/dashboard/spare_part/spare_part_provider.dart';
 import 'package:sparepart/screens/profile_screen/offer/on_pressed_discount_screen.dart';
 import 'package:sparepart/screens/profile_screen/order/order_screen.dart';
 import 'package:sparepart/screens/profile_screen/order/order_screen_brands.dart';
 import 'package:sparepart/screens/profile_screen/order/order_screen_categories.dart';
 import 'package:sparepart/screens/profile_screen/order/order_screen_feeatured_product.dart';
+import 'package:sparepart/screens/profile_screen/order/order_screen_spare_part.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/utils/instances.dart';
@@ -32,6 +34,7 @@ class _DashBoardState extends State<DashBoard> {
   BrandsProvider brandsProvider;
   CategoriesProvider categoriesProvider;
   BrandIdProvider brandIdProvider;
+  SparePartProvider sparePartProvider;
   TextEditingController controller = TextEditingController();
   String image = '';
 
@@ -55,6 +58,9 @@ class _DashBoardState extends State<DashBoard> {
     brandIdProvider = Provider.of<BrandIdProvider>(context, listen: false);
     brandIdProvider.init(context);
     categoriesProvider.categoriesProvider();
+    sparePartProvider = Provider.of<SparePartProvider>(context, listen: false);
+    sparePartProvider.init(context);
+    sparePartProvider.sparePartProvider();
     super.initState();
   }
 
@@ -89,7 +95,7 @@ class _DashBoardState extends State<DashBoard> {
                             Stack(
                               children: [
                                 Positioned(
-                                  bottom:95,
+                                  bottom: 95,
                                   child: Text(
                                     'Welcome',
                                     style: GoogleFonts.abrilFatface(
@@ -109,19 +115,20 @@ class _DashBoardState extends State<DashBoard> {
                               ],
                             ),
                             SizedBox(
-                              height: 65,
-                              width: 60,
-                              child: image.isNotEmpty?ClipOval(
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.cover,
-                                  imageUrl: image,
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
-                              ):Container()
-                            ),
+                                height: 65,
+                                width: 60,
+                                child: image.isNotEmpty
+                                    ? ClipOval(
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl: image,
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                      )
+                                    : Container()),
                           ],
                         ),
                       ),
@@ -152,7 +159,8 @@ class _DashBoardState extends State<DashBoard> {
                       customCardTopProduct(titleText: 'Top Products'),
                       customCardFeaturedProduct(titleText: 'Featured Products'),
                       customCardBrands(titleText: 'Brands'),
-                      customCardCategories(titleText: 'Categories')
+                      customCardCategories(titleText: 'Categories'),
+                      customCardSparePartProduct(titleText: 'Spare Part')
                     ],
                   ),
                 ),
@@ -323,6 +331,166 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
+  Widget customCardSparePartProduct({String titleText}) {
+    return Consumer<SparePartProvider>(
+      builder: (_, provider, __) {
+        if (provider.sparePartModel == null) {
+          return Container();
+        } else {
+          return Container(
+              height: 220,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: AppColor.yellow,
+                child: Padding(
+                    padding: EdgeInsets.all(14.0),
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderScreenSparePart(
+                                        screenTitle: titleText,
+                                      ))),
+                          child: Row(
+                            children: <Widget>[
+                              TextViewWidget(
+                                text: titleText,
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w600,
+                                textSize: 18,
+                              ),
+                              Spacer(),
+                              Text(
+                                'See all',
+                                style: GoogleFonts.abel(
+                                  textStyle: TextStyle(
+                                      color: AppColor.purple,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: .0),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          thickness: 0.5,
+                          color: AppColor.black,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: provider.sparePartModel.products.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              var productLog =
+                                  provider.sparePartModel.products[index];
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            color: AppColor.purple,
+                                            child: InkWell(
+                                              onTap: () => Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          OnPressedDiscountScreen(
+                                                            id: productLog.id,
+                                                            imageText:
+                                                                productLog
+                                                                    .imgUrl,
+                                                            priceText:
+                                                                productLog
+                                                                    .price,
+                                                            descriptionText:
+                                                                productLog
+                                                                    .description,
+                                                            categoryText:
+                                                                productLog
+                                                                    .category,
+                                                            nameText:
+                                                                productLog.name,
+                                                            discount: productLog
+                                                                .discount,
+                                                            year:
+                                                                productLog.year,
+                                                            weight: productLog
+                                                                .weightInKg,
+                                                          ))),
+                                              child: Card(
+                                                elevation: 3,
+                                                shadowColor:
+                                                    AppColor.editTextBackground,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      '$url${productLog?.imgUrl ?? ''}',
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 14,
+                                      ),
+                                      InkWell(
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      OnPressedDiscountScreen(
+                                                        imageText:
+                                                            productLog.imgUrl,
+                                                        priceText:
+                                                            productLog.price,
+                                                        descriptionText:
+                                                            productLog
+                                                                .description,
+                                                        categoryText:
+                                                            productLog.category,
+                                                        nameText:
+                                                            productLog.name,
+                                                      ))),
+                                          child: Text(
+                                            productLog?.name ?? '',
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.andika(
+                                              textStyle: TextStyle(
+                                                color: AppColor.black,
+                                              ),
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    )),
+              ));
+        }
+      },
+    );
+  }
+
   Widget customCardFeaturedProduct({String titleText}) {
     return Consumer<FeaturedProductProvider>(
       builder: (_, provider, __) {
@@ -386,97 +554,83 @@ class _DashBoardState extends State<DashBoard> {
                             itemBuilder: (BuildContext context, int index) {
                               var productLog =
                                   provider.featuredProductModel[index];
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              return Column(
                                 children: [
-                                  Column(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            color: AppColor.purple,
-                                            child: InkWell(
-                                              onTap: () => Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          OnPressedDiscountScreen(
-                                                            id: productLog.id,
-                                                            imageText:
-                                                                productLog
-                                                                    .imgUrl,
-                                                            priceText:
-                                                                productLog
-                                                                    .price,
-                                                            descriptionText:
-                                                                productLog
-                                                                    .description,
-                                                            categoryText:
-                                                                productLog
-                                                                    .category,
-                                                            nameText:
-                                                                productLog.name,
-                                                            discount: productLog
-                                                                .discount,
-                                                            weight: productLog
-                                                                .weightInKg,
-                                                            year:
-                                                                productLog.year,
-                                                          ))),
-                                              child: Card(
-                                                elevation: 3,
-                                                shadowColor:
-                                                    AppColor.editTextBackground,
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      '$url${productLog?.imgUrl ?? ''}',
-                                                  placeholder: (context, url) =>
-                                                      CircularProgressIndicator(),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error),
-                                                ),
-                                              ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        color: AppColor.purple,
+                                        child: InkWell(
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      OnPressedDiscountScreen(
+                                                        id: productLog.id,
+                                                        imageText:
+                                                            productLog.imgUrl,
+                                                        priceText:
+                                                            productLog.price,
+                                                        descriptionText:
+                                                            productLog
+                                                                .description,
+                                                        categoryText:
+                                                            productLog.category,
+                                                        nameText:
+                                                            productLog.name,
+                                                        discount:
+                                                            productLog.discount,
+                                                        weight: productLog
+                                                            .weightInKg,
+                                                        year: productLog.year,
+                                                      ))),
+                                          child: Card(
+                                            elevation: 3,
+                                            shadowColor:
+                                                AppColor.editTextBackground,
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  '$url${productLog?.imgUrl ?? ''}',
+                                              placeholder: (context, url) =>
+                                                  CircularProgressIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
                                             ),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 14,
-                                      ),
-                                      InkWell(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    OnPressedDiscountScreen(
-                                                      imageText:
-                                                          productLog.imgUrl,
-                                                      priceText:
-                                                          productLog.price,
-                                                      descriptionText:
-                                                          productLog
-                                                              .description,
-                                                      categoryText:
-                                                          productLog.category,
-                                                      nameText: productLog.name,
-                                                      weight:
-                                                          productLog.weightInKg,
-                                                      year: productLog.year,
-                                                    ))),
-                                        child: Text(
-                                          productLog?.name ?? '',
-                                          style: GoogleFonts.andika(
-                                            textStyle: TextStyle(
-                                                color: AppColor.black,
-                                                letterSpacing: .0),
-                                          ),
-                                        ),
-                                      )
-                                    ],
+                                    ),
                                   ),
+                                  SizedBox(
+                                    height: 14,
+                                  ),
+                                  InkWell(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OnPressedDiscountScreen(
+                                                  imageText: productLog.imgUrl,
+                                                  priceText: productLog.price,
+                                                  descriptionText:
+                                                      productLog.description,
+                                                  categoryText:
+                                                      productLog.category,
+                                                  nameText: productLog.name,
+                                                  weight: productLog.weightInKg,
+                                                  year: productLog.year,
+                                                ))),
+                                    child: Text(
+                                      productLog?.name ?? '',
+                                      style: GoogleFonts.andika(
+                                        textStyle: TextStyle(
+                                            color: AppColor.black,
+                                            letterSpacing: .0),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               );
                             },

@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:sparepart/utils/instances.dart';
 
 class BrandIdRepo {
-  // BrandModel brandModel;
   Cars cars;
   Future<dynamic> brandIdRepo({@required String id}) async {
     try {

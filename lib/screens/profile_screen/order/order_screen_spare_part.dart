@@ -1,36 +1,29 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sparepart/dashboard/provider.dart';
+import 'package:sparepart/dashboard/spare_part/spare_part_provider.dart';
 import 'package:sparepart/screens/profile_screen/offer/on_pressed_discount_screen.dart';
 import 'package:sparepart/utils/assetsString.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 
-class OrderScreen extends StatefulWidget {
+class OrderScreenSparePart extends StatefulWidget {
   final String screenTitle;
-
-  OrderScreen({
-    Key key,
-    this.screenTitle,
-  }) : super(key: key);
+  const OrderScreenSparePart({Key key, this.screenTitle}) : super(key: key);
 
   @override
-  _OrderScreenState createState() => _OrderScreenState();
+  _OrderScreenSparePartState createState() => _OrderScreenSparePartState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _OrderScreenSparePartState extends State<OrderScreenSparePart> {
   bool isOnTap = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
+      body: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -125,27 +118,27 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
       );
 
-  Widget orderItemContainer() => Consumer<TopProductProvider>(
+  Widget orderItemContainer() => Consumer<SparePartProvider>(
         builder: (BuildContext context, provider1, Widget child) {
           return ListView.separated(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: provider1.productModel.length,
+            itemCount: provider1.sparePartModel.products.length,
             itemBuilder: (BuildContext context, int index) {
-              var productLog = provider1.productModel[index];
+              var productLog = provider1.sparePartModel.products[index];
               return InkWell(
                 onTap: () => Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=>OnPressedDiscountScreen(
-                      id: productLog.id,
-                      imageText: productLog.imgUrl,
-                      priceText: productLog.price,
-                      descriptionText: productLog.description,
-                      categoryText: productLog.category,
-                      nameText: productLog.name,
-                      discount: productLog.discount,
-                      year: productLog.year,
-                      weight: productLog.weightInKg,
-                    )
+                  builder: (context)=>OnPressedDiscountScreen(
+                    id: productLog.id,
+                    imageText: productLog.imgUrl,
+                    priceText: productLog.price,
+                    descriptionText: productLog.description,
+                    categoryText: productLog.category,
+                    nameText: productLog.name,
+                    discount: productLog.discount,
+                    year: productLog.year,
+                    weight: productLog.weightInKg,
+                  )
                 )),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -195,9 +188,19 @@ class _OrderScreenState extends State<OrderScreen> {
                         child: SizedBox(
                       width: 15,
                     )),
-                    TextViewWidget(
-                        text: '${productLog.createdAt.substring(0, 10)}',
-                        color: AppColor.black)
+                    Column(
+                      children: [
+                        TextViewWidget(
+                            text: '${productLog?.price??''}',
+                            color: AppColor.black),
+                        TextViewWidget(
+                            text: '${productLog?.year??''}',
+                            color: AppColor.black),
+                        TextViewWidget(
+                            text: '${productLog?.weightInKg??''}',
+                            color: AppColor.black)
+                      ],
+                    )
                   ],
                 ),
               );

@@ -11,6 +11,7 @@ import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
 import 'package:sparepart/widgets/textform_widget.dart';
 import 'add_to_cart_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnPressedDiscountScreen extends StatefulWidget {
   final String imageText;
@@ -42,7 +43,7 @@ class OnPressedDiscountScreen extends StatefulWidget {
 }
 
 class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
-  bool onTap = true;
+  bool onTap, onTapRecentProduct = true;
   Count countProvider;
   double discountPrice;
   ProductProvider productProvider;
@@ -63,6 +64,25 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
     calculateDiscount();
     super.initState();
   }
+
+  text(String text1, String text2) => RichText(
+        text: new TextSpan(
+          // Note: Styles for TextSpans must be explicitly defined.
+          // Child text spans will inherit styles from parent
+          style: new TextStyle(
+            fontSize: 14.0,
+            color: Colors.black,
+          ),
+          children: <TextSpan>[
+            new TextSpan(
+                text: '$text1',
+                style: new TextStyle(fontWeight: FontWeight.w400)),
+            new TextSpan(
+                text: '$text2',
+                style: new TextStyle(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +132,14 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                             child: CachedNetworkImage(
                               imageUrl:
                                   '$url${provider2?.gProductModel?.product?.imgUrl ?? ''}',
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                              placeholder: (context, url) => Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(),
+                              ),
                             ),
                           ),
                         ),
@@ -128,10 +152,14 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                             child: CachedNetworkImage(
                               imageUrl:
                                   '$url${provider2?.gProductModel?.product?.imgUrl1 ?? ''}',
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                              placeholder: (context, url) => Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(),
+                              ),
                             ),
                           ),
                         ),
@@ -144,10 +172,14 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                             child: CachedNetworkImage(
                               imageUrl:
                                   '$url${provider2?.gProductModel?.product?.imgUrl2 ?? ''}',
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                              placeholder: (context, url) => Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(),
+                              ),
                             ),
                           ),
                         ),
@@ -165,7 +197,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: Container(
-                          height: 150,
+                          height: 200,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -173,8 +205,6 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                               children: [
                                 Expanded(
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
@@ -186,7 +216,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                               : widget.nameText,
                                           fontWeight: FontWeight.w600,
                                           color: AppColor.black,
-                                          textSize: 20,
+                                          textSize: 21,
                                         ),
                                       ),
                                       Expanded(
@@ -222,6 +252,10 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                                         color: AppColor.grey),
                                                     textAlign: TextAlign.center,
                                                   ),
+                                                  text('Maker:',
+                                                      '${provider2?.gProductModel?.product?.maker?.name ?? ''}'),
+                                                  text('Car:',
+                                                      '${provider2?.gProductModel?.product?.model?.car?.name ?? ''}'),
                                                 ],
                                               ),
                                               Spacer(),
@@ -310,7 +344,7 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                                           size: 20,
                                                         ),
                                                         SizedBox(
-                                                          width: 10,
+                                                          width: 6,
                                                         ),
                                                         TextViewWidget(
                                                           text: '4.5',
@@ -328,12 +362,23 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                                           ),
                                         ),
                                       ),
-                                      TextViewWidget(
-                                        text: widget.categoryText,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColor.black,
-                                        textSize: 17,
-                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            TextViewWidget(
+                                              text: widget.categoryText,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColor.black,
+                                              textSize: 17,
+                                            ),
+                                            text('Model:',
+                                                '${provider2?.gProductModel?.product?.model?.name ?? ''}')
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -342,8 +387,154 @@ class _OnPressedDiscountScreenState extends State<OnPressedDiscountScreen> {
                           ),
                         ),
                       ),
+                      Container(
+                        height: 190,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          color: AppColor.dividerColor,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Recent product',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.aBeeZee(
+                                    textStyle: TextStyle(
+                                        color: AppColor.black, fontSize: 19),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemCount: provider2?.gProductModel
+                                          ?.recentProducts?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    var value = provider2
+                                        .gProductModel.recentProducts[index];
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    OnPressedDiscountScreen(
+                                                      id: value.id,
+                                                      imageText: value.imgUrl,
+                                                      priceText: value.price,
+                                                      descriptionText:
+                                                          value.description,
+                                                      categoryText:
+                                                          value.category,
+                                                      nameText: value.name,
+                                                      discount: value.discount,
+                                                      weight: value.weightInKg,
+                                                      year: value.year,
+                                                    )));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: Container(
+                                                height: 70,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10))),
+                                                child: Card(
+                                                  elevation: 3,
+                                                  shadowColor: AppColor
+                                                      .editTextBackground,
+                                                  child: provider2.gProductModel
+                                                                  .recentProducts ==
+                                                              null ||
+                                                          provider2
+                                                              .gProductModel
+                                                              .recentProducts
+                                                              .isEmpty
+                                                      ? Container()
+                                                      : Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            CachedNetworkImage(
+                                                              imageUrl:
+                                                                  '$url${value?.imgUrl ?? ''}',
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  CircularProgressIndicator(),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Icon(Icons
+                                                                      .error),
+                                                            ),
+                                                            CachedNetworkImage(
+                                                              imageUrl:
+                                                                  '$url${value?.imgUrl1 ?? ''}',
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  CircularProgressIndicator(),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Icon(Icons
+                                                                      .error),
+                                                            ),
+                                                            CachedNetworkImage(
+                                                              imageUrl:
+                                                                  '$url${value?.imgUrl2 ?? ''}',
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  CircularProgressIndicator(),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Icon(Icons
+                                                                      .error),
+                                                            )
+                                                          ],
+                                                        ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 10),
+                                            child: Text(
+                                              '${value?.name ?? ''}',
+                                              textAlign: TextAlign.right,
+                                              style: GoogleFonts.andika(
+                                                textStyle: TextStyle(
+                                                    color: AppColor.black,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       SizedBox(
-                        height: 20,
+                        height: 21,
                       ),
                       Card(
                         shape: RoundedRectangleBorder(

@@ -15,18 +15,13 @@ class ProductRepo {
       print('Response body: ${response.body}');
       var decodedData = json.decode(response.body);
       dynamic mapList = decodedData['product'];
+      dynamic mapList1 = decodedData['product']['maker'];
+      dynamic mapList2 = decodedData['product']['model'];
+      dynamic mapList3 = decodedData['product']['model']['car'];
       List mapRecentList = decodedData['recent_products'];
-      GProductModel gProductModel = GProductModel(
-          product: Product(
-            name: mapList['name'],
-            productCode: mapList['product_code'],
-            imgUrl: mapList['img_url'],
-            imgUrl1: mapList['img_url_1'],
-            imgUrl2: mapList['img_url_2'],
-            discount: mapList['discount'],
-          ));
-      for(int i = 0; i < mapRecentList.length; i++){
+      for (int i = 0; i < mapRecentList.length; i++) {
         RecentProducts recentProducts = RecentProducts(
+          id: mapRecentList[i]['id'],
           name: mapRecentList[i]['name'],
           description: mapRecentList[i]['description'],
           imgUrl: mapRecentList[i]['img_url'],
@@ -43,6 +38,25 @@ class ProductRepo {
         print('recemt produt list ${recentProducts.name}');
         print('recemt produt length ${mapRecentList.length}');
       }
+      GProductModel gProductModel = GProductModel(
+          product: Product(
+            id: mapList['id'],
+            name: mapList['name'],
+            productCode: mapList['product_code'],
+            imgUrl: mapList['img_url'],
+            imgUrl1: mapList['img_url_1'],
+            imgUrl2: mapList['img_url_2'],
+            discount: mapList['discount'],
+            description: mapList['description'],
+            year: mapList['year'],
+            weightInKg: mapList['weightInKg'],
+            maker: Maker(id: mapList1['id'], name: mapList1['name']),
+            model: Model(
+                id: mapList2['id'],
+                name: mapList2['name'],
+                car: Car(name: mapList3['name'])),
+          ),
+          recentProducts: recentProductList);
       return gProductModel;
     } catch (e) {
       return e;
