@@ -1,26 +1,30 @@
 import 'package:flutter/cupertino.dart';
-import 'package:jaynetwork/network/api_result.dart';
-import 'package:sparepart/utils/error_handler/handler.dart';
+import 'package:sparepart/sign_up/model.dart';
 import 'package:sparepart/utils/instances.dart';
 
 import 'model.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class OtpApiRepository {
+  SignUpModel signUpModel;
+
   Future<dynamic> verify({@required String tokenMap}) async {
     final token = {
       'token': tokenMap
     };
-    try {
-      final response =
-      await networkClient.makePostRequest("verify",data: token);
-      final _finalData = OtpModel.fromJson(response.data);
 
-      return ApiResponse.success(
-          statusCode: response.statusCode,
-          data: _finalData,
-          statusMessage: response.statusMessage);
-    } catch (e) {
-      return handleNetworkException(e);
+    try{
+      print('inside verification');
+      var url = Uri.parse('$BASE_URL' + 'verify');
+      var response = await http.post(url,body: token);
+      var decodedData = json.decode(response.body);
+      final _finalData = OtpModel.fromJson(decodedData);
+      print('inside verification ${_finalData.message}');
+      return _finalData;
+
+    }catch(e){
+      return e;
     }
   }
 
@@ -28,11 +32,18 @@ class OtpApiRepository {
     final token = {
       'token': queryToken
     };
-    try {
-      final response = await networkClient.makePostRequest("verify",data: token);
-      return ApiResponse.success(data: OtpModel.fromJson(response.data));
-    } catch (e) {
-      return handleNetworkException(e);
+
+    try{
+      print('inside resend');
+      var url = Uri.parse('$BASE_URL' + 'verify');
+      var response = await http.post(url,body: token);
+      var decodedData = json.decode(response.body);
+      final _finalData = OtpModel.fromJson(decodedData);
+      print('inside verification ${_finalData.message}');
+      return _finalData;
+
+    }catch(e){
+      return e;
     }
   }
 }

@@ -33,7 +33,6 @@ dependencies:
   pin_entry_text_field: ^0.1.4
   curved_navigation_bar: ^1.0.1
   dots_indicator: ^1.2.0
-  jaynetwork: ^2.0.0
   shared_preferences: ^2.0.6
   provider: ^5.0.0
   toast: ^0.1.5
@@ -44,11 +43,7 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   google_fonts: ^2.1.0
-  
 
-dependency_overrides:
-
-#  paystack_manager: ^1.0.3
 
 dev_dependencies:
   flutter_test:

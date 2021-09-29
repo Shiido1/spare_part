@@ -1,13 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:jaynetwork/interceptor/retry/add_interceptor.dart';
-import 'package:jaynetwork/network/dio_client.dart';
 import 'package:sparepart/utils/pref_manage.dart';
 import 'package:toast/toast.dart';
 
-final JayNetworkClient networkClient = JayNetworkClient(
-    'https://admin.gapaautoparts.com/api/',
-    interceptors: addPredefinedInterceptor());
 
 // ignore: non_constant_identifier_names
 final BASE_URL = 'https://admin.gapaautoparts.com/api/';

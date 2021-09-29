@@ -120,6 +120,7 @@ class EditTextWidget extends StatelessWidget {
                 ),
                 Flexible(
                   child: TextFormField(
+                    textCapitalization: TextCapitalization.sentences,
                     readOnly: readOnly,
                     onChanged: textCallBack,
                     maxLength: maxLength,

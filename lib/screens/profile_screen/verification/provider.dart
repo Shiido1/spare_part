@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:jaynetwork/network/network_exceptions.dart';
+import 'package:sparepart/screens/profile_screen/verification/model.dart';
 import 'package:sparepart/screens/profile_screen/verification/repo.dart';
 import 'package:sparepart/utils/custom_loader/custom_loader_indicator.dart';
 import 'package:sparepart/utils/instances.dart';
@@ -13,6 +13,7 @@ OtpApiRepository _repository = OtpApiRepository();
 class OtpProviders extends ChangeNotifier {
   BuildContext _context;
   CustomLoader _progressIndicator;
+  OtpModel otpModel;
 
   void init(BuildContext context) {
     this._context = context;
@@ -22,43 +23,34 @@ class OtpProviders extends ChangeNotifier {
   void verifyOtp({@required String token}) async {
     try {
       _progressIndicator.showLoader();
-      final _response = await _repository.verify(tokenMap: token);
-      _response.when(success: (success, data, __) async {
-        await _progressIndicator.hideLoader();
-        showToast(this._context, message: success.message);
-        PageRouter.gotoNamed(Routes.DASHBOARD_SCREEN, _context);
-        notifyListeners();
-      }, failure: (NetworkExceptions error, _, statusMessage) async {
-         _progressIndicator.hideLoader();
-        showToast(this._context,
-            message: NetworkExceptions.getErrorMessage(error));
-      });
+      otpModel = await _repository.verify(tokenMap: token);
+      print('printing spare part model ${otpModel.message}');
+
+      await _progressIndicator.hideLoader();
+      showToast(this._context, message: otpModel.message);
+      PageRouter.gotoNamed(Routes.LOGIN, _context);
       notifyListeners();
     } catch (e) {
-      _progressIndicator.hideLoader();
-      debugPrint('Error: $e');
+      await _progressIndicator.hideLoader();
+      showToast(this._context, message: 'Failed.. Please try again');
+      notifyListeners();
     }
   }
 
   void resendOtp(UtilityProvider utilityProvider,{@required String token}) async {
     try {
       _progressIndicator.showLoader();
-      final _response = await _repository.resend(queryToken: token);
-      _response.when(success: (success, data, __) async {
-        await _progressIndicator.hideLoader();
-        showToast(this._context, message: 'resending again');
-        utilityProvider.startTimer(timeLimit: 4);
-        PageRouter.gotoNamed(Routes.DASHBOARD_SCREEN, _context);
-        notifyListeners();
-      }, failure: (NetworkExceptions error, _, statusMessage) async {
-        await _progressIndicator.hideLoader();
-        showToast(this._context,
-            message: NetworkExceptions.getErrorMessage(error));
-      });
+      otpModel = await _repository.verify(tokenMap: token);
+      print('printing spare part model ${otpModel.message}');
+
+      await _progressIndicator.hideLoader();
+      showToast(this._context, message: otpModel.message);
+      PageRouter.gotoNamed(Routes.LOGIN, _context);
       notifyListeners();
     } catch (e) {
       await _progressIndicator.hideLoader();
-      debugPrint('Error: $e');
+      showToast(this._context, message: 'Failed.. Please try again');
+      notifyListeners();
     }
   }
 }
