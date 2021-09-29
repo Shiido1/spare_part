@@ -24,5 +24,6 @@ class SignUpApiRepository {
     } catch (e) {
       return handleNetworkException(e);
     }
+
   }
 }

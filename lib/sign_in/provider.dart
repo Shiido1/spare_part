@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:jaynetwork/network/network_exceptions.dart';
 import 'package:sparepart/sign_in/model.dart';
 import 'package:sparepart/sign_in/repo.dart';
 import 'package:sparepart/utils/custom_loader/custom_loader_indicator.dart';
@@ -23,38 +22,20 @@ class SignInProvider extends ChangeNotifier {
 
   void loginUser({@required BuildContext context, @required Map map}) async {
 
-    try {
-      loader.showLoader();
-      final _response =
-          await _loginRepository.loginUser(context: context, map: map);
-      await loader.hideLoader();
-      _response.when(success: (success, _, statusMessage) async {
-
-        showToast(this._context, message: 'Login Successful.');
+      try {
+        loader.showLoader();
+        model = await _loginRepository.loginUser(context: context, map: map);
+        print('printing spare part model ${model.userData.firstName}');
+        print('printing spare part model $model');
+        print('printing stacode code ${model.message}');
+        await loader.hideLoader();
+        showToast(this._context, message: model.message);
         PageRouter.gotoNamed(Routes.DASHBOARD_SCREEN, _context);
         notifyListeners();
-      }, failure: (NetworkExceptions error, _, statusMessage) async {
-        // await loader.hideLoader();
-        if (error.toString() == 'NetworkExceptions.noInternetConnection()') {
-          errorMsg = 'check internet connection and try again';
-          // loader.hideLoader();
-          showToast(this._context, message: errorMsg);
-          notifyListeners();
-        } else if (error.toString() ==
-            'NetworkExceptions.unauthorizedRequest()') {
-          errorMsg = 'check email and password and try again';
-          showToast(this._context, message: errorMsg);
-          notifyListeners();
-        }
-        showToast(this._context,
-            message: NetworkExceptions.getErrorMessage(error));
-        // loader.hideLoader();
+      } catch (e) {
+        await loader.hideLoader();
+        showToast(this._context, message: 'Failed.. Please try again');
         notifyListeners();
-      });
-    } catch (e) {
-      await loader.hideLoader();
-      showToast(_context, message: e.toString());
-      notifyListeners();
-    }
+      }
   }
 }

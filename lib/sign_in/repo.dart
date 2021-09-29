@@ -1,35 +1,53 @@
 import 'package:flutter/cupertino.dart';
-import 'package:jaynetwork/network/api_result.dart';
-import 'package:sparepart/utils/error_handler/handler.dart';
 import 'package:sparepart/utils/instances.dart';
 import 'model.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class LoginApiRepository {
+  SignInModel signInModel;
+
   Future<dynamic> loginUser(
       {@required BuildContext context, @required Map map}) async {
-    try {
-      final _response = await networkClient.makePostRequest('login', data: map);
-      final _finalData = SignInModel.fromJson(_response.data);
-      print('printing first name ${_finalData.userData.firstName}');
-      preferencesHelper.saveValue(
-          key: 'first_name', value: _finalData.userData.firstName);
-      preferencesHelper.saveValue(
-          key: 'last_name', value: _finalData.userData.lastName);
-      preferencesHelper.saveValue(
-          key: 'email', value: _finalData.userData.email);
-      preferencesHelper.saveValue(key: 'id', value: _finalData.userData.id);
-      preferencesHelper.saveValue(
-          key: 'profile_image', value: _finalData.userData.profileImage);
-      preferencesHelper.saveValue(
-          key: 'address', value: _finalData.userData.address);
-      preferencesHelper.saveValue(
-          key: 'phone', value: _finalData.userData.phoneNumber);
-      return ApiResponse.success(
-          statusMessage: _response.statusMessage,
-          data: _finalData,
-          statusCode: _response.statusCode);
-    } catch (e) {
-      return handleNetworkException(e);
+
+    try{
+      print('printing sign in $map');
+      var url = Uri.parse('$BASE_URL'+'login');
+      var response = await http.post(url,body:map);
+      var decodedData = json.decode(response.body);
+      var decode = decodedData['user_data'];
+      print('printing sign in $response');
+      print('printing sign in ${response.body}');
+      print('printing sign in $decodedData}');
+      signInModel = SignInModel(
+        message: decodedData['message'],
+        userData: UserData(
+          id: decode['id'],
+          email: decode['email'],
+          firstName: decode['first_name'],
+          lastName: decode['last_name'],
+          phoneNumber: decode['phone_number'],
+          state: decode['state'],
+          profileImage: decode['profile_image'],
+          address: decode['address'],
+        ),
+      );
+        preferencesHelper.saveValue(
+            key: 'first_name', value: signInModel.userData.firstName);
+        preferencesHelper.saveValue(
+            key: 'last_name', value: signInModel.userData.lastName);
+        preferencesHelper.saveValue(
+            key: 'email', value: signInModel.userData.email);
+        preferencesHelper.saveValue(key: 'id', value: signInModel.userData.id);
+        preferencesHelper.saveValue(
+            key: 'profile_image', value: signInModel.userData.profileImage);
+        preferencesHelper.saveValue(
+            key: 'address', value: signInModel.userData.address);
+        preferencesHelper.saveValue(
+            key: 'phone', value: signInModel.userData.phoneNumber);
+      return signInModel;
+    }catch(e){
+      return e;
     }
   }
 }
