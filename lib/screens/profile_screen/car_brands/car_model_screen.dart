@@ -155,8 +155,8 @@ class _CarModelScreenState extends State<CarModelScreen> {
                                           ),
                                           SizedBox(height: 2,),
                                           TextViewWidget(
-                                            text: '${model?.name ?? ''}\n'
-                                                '${model?.year ?? ''}',
+                                            text: '${model?.name ?? ''}\n',
+                                                // '${model?.year ?? ''}',
                                             color: AppColor.black,
                                             fontWeight: FontWeight.w700,
                                             textAlign: TextAlign.end,
