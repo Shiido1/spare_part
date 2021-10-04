@@ -34,7 +34,7 @@ class SignInProvider extends ChangeNotifier {
         notifyListeners();
       } catch (e) {
         await loader.hideLoader();
-        showToast(this._context, message: 'Failed.. Please try again');
+        showToast(this._context, message: model.message);
         notifyListeners();
       }
   }

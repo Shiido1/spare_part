@@ -3,6 +3,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:sparepart/dashboard/provider.dart';
 import 'package:sparepart/dashboard/spare_part/spare_part_provider.dart';
 import 'package:sparepart/screens/product_screen/product_provider.dart';
+import 'package:sparepart/screens/profile_screen/car_brands/car_model_provider.dart';
 import 'package:sparepart/screens/profile_screen/forgot_password/forgot_password/provider.dart';
 import 'package:sparepart/screens/profile_screen/forgot_password/reset_password/provider.dart';
 import 'package:sparepart/screens/profile_screen/offer/add_to_cart_provider.dart';
@@ -34,5 +35,7 @@ class Providers {
     ChangeNotifierProvider<ProductProvider>(create: (_) => ProductProvider()),
     ChangeNotifierProvider<SparePartProvider>(
         create: (_) => SparePartProvider()),
+    ChangeNotifierProvider<CarModelProvider>(
+        create: (_) => CarModelProvider()),
   ];
 }

@@ -11,7 +11,7 @@ class CarModelRepo{
     try{
       List<Models> modelList = [];
 
-      var url = Uri.parse('$BRAND_BASE_URL' + '$id');
+      var url = Uri.parse('$MODEL_BASE_URL' + '$id');
       var response = await http.get(url);
       var decodedData = jsonDecode(response.body);
       var value = decodedData['car'];
@@ -25,6 +25,7 @@ class CarModelRepo{
               updatedAt: mapList[i]['updatedAt'],
               year: mapList[i]['year'],
           );
+          print('print repo model ${model.name}');
           modelList.add(model);
       }
       CarModel carModel = CarModel(
@@ -39,6 +40,9 @@ class CarModelRepo{
         ),
         models: modelList
       );
+      print('print repo model length ${modelList.length}');
+      print('print repo car ${carModel.car.name}');
+      print('print repo car ${carModel.models.length}');
       return carModel;
     }catch(e){
       return e;

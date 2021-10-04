@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sparepart/screens/profile_screen/car_brands/car_model_screen.dart';
 import 'package:sparepart/utils/color_assets/color.dart';
 import 'package:sparepart/utils/instances.dart';
 import 'package:sparepart/widgets/text_widget.dart';
@@ -57,33 +58,38 @@ class _CarBrandScreenState extends State<CarBrandScreen> {
                   itemCount: provider.carsModel.length,
                   itemBuilder: (context, index) {
                     var model = provider.carsModel[index];
-                    return Column(
-                      children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                          color: AppColor.editTextBackground.withOpacity(1),
-                          child: Container(
-                            height: 270,
-                            width: MediaQuery.of(context).size.width,
-                            child: CachedNetworkImage(
-                              height: 100,
-                              imageUrl: '$url${model?.imgUrl ?? ''}',
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                    return InkWell(
+                      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CarModelScreen(id: model.id
+                      ))),
+                      child: Column(
+                        children: [
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9),
+                            ),
+                            color: AppColor.editTextBackground.withOpacity(1),
+                            child: Container(
+                              height: 270,
+                              width: MediaQuery.of(context).size.width,
+                              child: CachedNetworkImage(
+                                height: 100,
+                                imageUrl: '$url${model?.imgUrl ?? ''}',
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                             ),
                           ),
-                        ),
-                        TextViewWidget(
-                          text: '${model.name}',
-                          color: AppColor.black,
-                          fontWeight: FontWeight.w700,
-                          textSize: 21,
-                        )
-                      ],
+                          Divider(thickness: 1,color: AppColor.black,),
+                          TextViewWidget(
+                            text: '${model.name}',
+                            color: AppColor.black,
+                            fontWeight: FontWeight.w700,
+                            textSize: 21,
+                          )
+                        ],
+                      ),
                     );
                   },
                 );

@@ -28,7 +28,7 @@ class SignInModel {
   static Map<String, dynamic> toSignInJson(
       {@required String email, @required String password}) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = email;
+    data['email_or_phone'] = email;
     data['password'] = password;
     return data;
   }

@@ -159,7 +159,7 @@ class _OrderScreenSparePartState extends State<OrderScreenSparePart> {
                       ),
                     ),
                     SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
                     Expanded(
                       child: Column(
@@ -169,17 +169,18 @@ class _OrderScreenSparePartState extends State<OrderScreenSparePart> {
                           TextViewWidget(
                             text: '${productLog.name}',
                             color: AppColor.black,
-                            textSize: 18,
+                            textAlign: TextAlign.justify,
+                            textSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 4,
                           ),
                           TextViewWidget(
                               text:
                                   getNairaSign(context, '${productLog.price}'),
                               fontWeight: FontWeight.bold,
-                              textSize: 16,
+                              textSize: 12,
                               color: AppColor.purple),
                         ],
                       ),
@@ -189,15 +190,16 @@ class _OrderScreenSparePartState extends State<OrderScreenSparePart> {
                       width: 15,
                     )),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextViewWidget(
-                            text: '${productLog?.price??''}',
-                            color: AppColor.black),
+                            text: 'Year: ${productLog?.year??''}',
+                            color: AppColor.black,
+                          textSize: 14,
+                        ),
                         TextViewWidget(
-                            text: '${productLog?.year??''}',
-                            color: AppColor.black),
-                        TextViewWidget(
-                            text: '${productLog?.weightInKg??''}',
+                            textSize: 14,
+                            text: 'Weight: ${productLog?.weightInKg??''}',
                             color: AppColor.black)
                       ],
                     )

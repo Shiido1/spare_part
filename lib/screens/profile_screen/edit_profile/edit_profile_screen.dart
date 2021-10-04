@@ -70,7 +70,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       SizedBox(
                         height: 50,
                         width: 50,
-                        child: ClipOval(
+                        child: image.isNotEmpty? ClipOval(
                           child: CachedNetworkImage(
                             imageUrl:image ?? '',
                             placeholder: (context, url) =>
@@ -80,7 +80,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 Icon(Icons.error),
                           ),
 
-                        ),
+                        ):Container(),
                       ),
                     ],
                   ),

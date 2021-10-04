@@ -95,15 +95,15 @@ class _DashBoardState extends State<DashBoard> {
                             Stack(
                               children: [
                                 Positioned(
-                                  bottom: 95,
+                                  bottom: 91,
+                                  left: 10,
                                   child: Text(
                                     'Welcome',
                                     style: GoogleFonts.abrilFatface(
                                       textStyle: TextStyle(
                                           color: AppColor.yellow,
-                                          fontSize: 35,
-                                          fontWeight: FontWeight.w400,
-                                          letterSpacing: .0),
+                                          fontSize: 27,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                   ),
                                 ),
@@ -287,7 +287,7 @@ class _DashBoardState extends State<DashBoard> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 14,
+                                        height: 8,
                                       ),
                                       InkWell(
                                           onTap: () => Navigator.push(
@@ -309,7 +309,7 @@ class _DashBoardState extends State<DashBoard> {
                                                       ))),
                                           child: Text(
                                             productLog?.name ?? '',
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.justify,
                                             style: GoogleFonts.andika(
                                               textStyle: TextStyle(
                                                 color: AppColor.black,

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sparepart/dashboard/provider.dart';
 import 'package:sparepart/screens/profile_screen/offer/on_pressed_discount_screen.dart';
@@ -84,9 +85,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         container(text: 'All Order'),
                         container(text: 'Pending'),
                         container(text: 'Processing'),
-                        container(
-                          text: 'Delivery',
-                        ),
+                        container(text: 'Delivery'),
                       ],
                     ),
                     SizedBox(
@@ -127,88 +126,99 @@ class _OrderScreenState extends State<OrderScreen> {
 
   Widget orderItemContainer() => Consumer<TopProductProvider>(
         builder: (BuildContext context, provider1, Widget child) {
-          return ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: provider1.productModel.length,
-            itemBuilder: (BuildContext context, int index) {
-              var productLog = provider1.productModel[index];
-              return InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=>OnPressedDiscountScreen(
-                      id: productLog.id,
-                      imageText: productLog.imgUrl,
-                      priceText: productLog.price,
-                      descriptionText: productLog.description,
-                      categoryText: productLog.category,
-                      nameText: productLog.name,
-                      discount: productLog.discount,
-                      year: productLog.year,
-                      weight: productLog.weightInKg,
-                    )
-                )),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Card(
-                        elevation: 2,
-                        shadowColor: AppColor.grey,
-                        child: CachedNetworkImage(
-                          imageUrl: '$url${productLog.imgUrl}',
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+          if(provider1.productModel == null){
+            return Center(
+                child: SpinKitCircle(
+                  color: AppColor.purple,
+                  size: 50,
+                ));
+          }else {
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: provider1.productModel.length,
+              itemBuilder: (BuildContext context, int index) {
+                var productLog = provider1.productModel[index];
+                return InkWell(
+                  onTap: () =>
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                              OnPressedDiscountScreen(
+                                id: productLog.id,
+                                imageText: productLog.imgUrl,
+                                priceText: productLog.price,
+                                descriptionText: productLog.description,
+                                categoryText: productLog.category,
+                                nameText: productLog.name,
+                                discount: productLog.discount,
+                                year: productLog.year,
+                                weight: productLog.weightInKg,
+                              )
+                      )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Card(
+                          elevation: 2,
+                          shadowColor: AppColor.grey,
+                          child: CachedNetworkImage(
+                            imageUrl: '$url${productLog.imgUrl}',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextViewWidget(
-                            text: '${productLog.name}',
-                            color: AppColor.black,
-                            textSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextViewWidget(
-                              text:
-                                  getNairaSign(context, '${productLog.price}'),
-                              fontWeight: FontWeight.bold,
-                              textSize: 16,
-                              color: AppColor.purple),
-                        ],
+                      SizedBox(
+                        width: 10,
                       ),
-                    ),
-                    Expanded(
-                        child: SizedBox(
-                      width: 15,
-                    )),
-                    TextViewWidget(
-                        text: '${productLog.createdAt.substring(0, 10)}',
-                        color: AppColor.black)
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                thickness: 0.7,
-                color: Colors.black26,
-              );
-            },
-          );
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextViewWidget(
+                              text: '${productLog.name}',
+                              color: AppColor.black,
+                              textAlign: TextAlign.justify,
+                              textSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            TextViewWidget(
+                                text:
+                                getNairaSign(context, '${productLog.price}'),
+                                fontWeight: FontWeight.bold,
+                                textSize: 12,
+                                color: AppColor.purple),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                          child: SizedBox(
+                            width: 15,
+                          )),
+                      TextViewWidget(
+                          text: '${productLog.createdAt.substring(0, 10)}',
+                          color: AppColor.black)
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  thickness: 0.7,
+                  color: Colors.black26,
+                );
+              },
+            );
+          }
         },
       );
 }

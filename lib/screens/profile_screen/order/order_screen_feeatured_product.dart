@@ -164,7 +164,7 @@ class _OrderScreenFeaturedProductState
                       ),
                     ),
                     SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
                     Expanded(
                       child: Column(
@@ -174,17 +174,18 @@ class _OrderScreenFeaturedProductState
                           TextViewWidget(
                             text: '${productLog.name}',
                             color: AppColor.black,
-                            textSize: 18,
+                            textAlign: TextAlign.justify,
+                            textSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 4,
                           ),
                           TextViewWidget(
                               text:
                                   getNairaSign(context, '${productLog.price}'),
                               fontWeight: FontWeight.bold,
-                              textSize: 16,
+                              textSize: 12,
                               color: AppColor.purple),
                         ],
                       ),

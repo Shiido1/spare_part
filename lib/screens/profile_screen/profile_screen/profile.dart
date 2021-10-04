@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 250,
                       width: 250,
-                      child: ClipOval(
+                      child: image.isNotEmpty?ClipOval(
                         child: CachedNetworkImage(
                           imageUrl: image ?? '',
                           placeholder: (context, url) =>
@@ -67,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),
-                      ),
+                      ):Container(),
                     ),
                     SizedBox(
                       height: 10,
